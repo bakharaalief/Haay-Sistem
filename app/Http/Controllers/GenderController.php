@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Gender;
+use Exception;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class GenderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $dataUser = User::all();
-        return view('user.index')
-            ->with(compact('dataUser'));
+        $dataGender = Gender::all();
+        return view('gender.index')->with(compact('dataGender'));
     }
 
     /**
@@ -37,7 +37,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Gender::create([
+                'gender' => $request['gender']
+            ]);
+            return redirect(route('gender.index'))->with(['success_store' => 'Gender Berhasil Ditambah']);
+        } catch (Exception $e) {
+            return redirect(route('gender.index'))->with(['failed_store' => 'Gender Gagal Ditambah']);
+        }
     }
 
     /**
@@ -48,7 +55,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $gender = Gender::findOrFail($id);
+        return response()->json([
+            'gender' => $gender->gender,
+        ]);
     }
 
     /**
@@ -59,7 +69,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -71,7 +80,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            Gender::where('id', $id)->update([
+                'gender' => $request['gender']
+            ]);
+            return redirect(route('gender.index'))->with(['success_update' => 'Gender Berhasil Diupdate']);
+        } catch (Exception $e) {
+            return redirect(route('gender.index'))->with(['failed_update' => 'Gender Gagal Diupdate']);
+        }
     }
 
     /**
@@ -82,6 +98,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Gender::destroy($id);
+            return redirect(route('gender.index'))->with(['success_delete' => 'Gender Berhasil Dihapus']);
+        } catch (Exception $e) {
+            return redirect(route('gender.index'))->with(['failed_delete' => 'Gender Gagal Dihapus']);
+        }
     }
 }

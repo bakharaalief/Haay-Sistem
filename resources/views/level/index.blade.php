@@ -7,7 +7,7 @@
 @endsection
 
 @section('page-name')
-<h1>User</h1>
+<h1>Level</h1>
 @endsection
 
 @section('content')
@@ -16,36 +16,26 @@
       <div class="card">
 
         <div class="card-header">
-          <h3 class="card-title">Data Table User</h3>
+          <h3 class="card-title">Data Table Level</h3>
         </div>
-        
+
         <div class="card-body">
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Nama</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Level</th>
-                <th>Dibuat</th>
-                <th>Diupdate</th>
+                <th>Jenis Level</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($dataUser as $user)
+              @foreach ($dataLevel as $level)
               <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->getGender->gender }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->getLevel->level }}</td>
-                <td>{{ $user->created_at }}</td>
-                <td>{{ $user->updated_at }}</td>
+                <td>{{ $level->level }}</td>
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        
+
       </div>
     </div>
 </div>

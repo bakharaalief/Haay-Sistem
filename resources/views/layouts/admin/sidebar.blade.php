@@ -23,10 +23,37 @@
 
         {{-- user button --}}
         <li class="nav-item">
-          <a href="{{ route('user.index') }}" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="nav-icon fa fa-user"></i>
             <p>User</p>
+            <i class="right fa fa-angle-left"></i>
           </a>
+          <ul class="nav nav-treeview">
+
+            {{-- list user --}}
+            <li class="nav-item">
+              <a href="{{ route('user.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>List</p>
+              </a>
+            </li>
+
+            {{-- level user --}}
+            <li class="nav-item">
+              <a href="{{ route('level.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Level</p>
+              </a>
+            </li>
+
+            {{-- level gender --}}
+            <li class="nav-item">
+              <a href="{{ route('gender.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Gender</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
         {{-- logout button --}}

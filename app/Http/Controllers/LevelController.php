@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Level;
+use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class LevelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $dataUser = User::all();
-        return view('user.index')
-            ->with(compact('dataUser'));
+        $dataLevel = Level::all();
+        return View('level.index')->with(compact('dataLevel'));
     }
 
     /**

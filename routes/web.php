@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +28,8 @@ Auth::routes();
 Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::get('/', [HomeController::class, 'adminIndex'])->name('admin.home');
     Route::resource('/user', UserController::class);
+    Route::resource('/level', LevelController::class);
+    Route::resource('/gender', GenderController::class);
 });
 
 //customer route
