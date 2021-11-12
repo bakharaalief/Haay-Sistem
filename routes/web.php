@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LevelController;
@@ -30,6 +31,7 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::resource('/user', UserController::class);
     Route::resource('/level', LevelController::class);
     Route::resource('/gender', GenderController::class);
+    Route::resource('/food-category', FoodCategoryController::class);
 });
 
 //customer route

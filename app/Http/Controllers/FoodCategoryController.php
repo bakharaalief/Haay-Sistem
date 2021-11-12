@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gender;
+use App\Models\FoodCategory;
 use Exception;
 use Illuminate\Http\Request;
 
-class GenderController extends Controller
+class FoodCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,11 @@ class GenderController extends Controller
      */
     public function index()
     {
-        // get data from table gender where visible == true
-        $dataGender = Gender::where('visible', true)->get();
+        // get data from table food-category where visible == true
+        $dataFoodCategory = FoodCategory::where('visible', true)->get();
 
         //pass data to view
-        return view('gender.index')->with(compact('dataGender'));
+        return view('food-category.index')->with(compact('dataFoodCategory'));
     }
 
     /**
@@ -42,23 +42,23 @@ class GenderController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = Gender::where('visible', true)->where('gender', $request['gender'])->first();
+            $cekAda = FoodCategory::where('visible', true)->where('category', $request['category'])->first();
 
             //if exist
             if (isset($cekAda)) {
-                return redirect(route('gender.index'))->with(['failed_store' => 'Gender Gagal Ditambah karena sudah terdaftar']);
+                return redirect(route('food-category.index'))->with(['failed_store' => 'Kategori Gagal Ditambah karena sudah terdaftar']);
             }
 
             //else
             else {
-                Gender::create([
-                    'gender' => $request['gender'],
+                FoodCategory::create([
+                    'category' => $request['category'],
                     'visible' => true,
                 ]);
-                return redirect(route('gender.index'))->with(['success_store' => 'Gender Berhasil Ditambah']);
+                return redirect(route('food-category.index'))->with(['success_store' => 'Kategori Berhasil Ditambah']);
             }
         } catch (Exception $e) {
-            return redirect(route('gender.index'))->with(['failed_store' => 'Gender Gagal Ditambah']);
+            return redirect(route('food-category.index'))->with(['failed_store' => 'Kategori Gagal Ditambah']);
         }
     }
 
@@ -70,12 +70,12 @@ class GenderController extends Controller
      */
     public function show($id)
     {
-        // get data from table gender where visible == true and id same with paramete
-        $gender = Gender::where('visible', true)->findOrFail($id);
+        // get data from table Food Category where visible == true and id same with paramete
+        $foodCategory = FoodCategory::where('visible', true)->findOrFail($id);
 
         //return in json format
         return response()->json([
-            'gender' => $gender->gender,
+            'category' => $foodCategory->category,
         ]);
     }
 
@@ -87,6 +87,7 @@ class GenderController extends Controller
      */
     public function edit($id)
     {
+        //
     }
 
     /**
@@ -100,25 +101,25 @@ class GenderController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = Gender::where('visible', true)->where('gender', $request['gender'])->first();
+            $cekAda = FoodCategory::where('visible', true)->where('category', $request['category'])->first();
 
             //if exist
             if (isset($cekAda)) {
-                return redirect(route('gender.index'))->with(['failed_store' => 'Gender Gagal Diupdate karena sudah terdaftar']);
+                return redirect(route('food-category.index'))->with(['failed_store' => 'Kategori Gagal Diupdate karena sudah terdaftar']);
             }
 
             //else
             else {
-                // update from table gender where visible == true and id same with parameter
-                Gender::where('visible', true)->where('id', $id)->update([
-                    'gender' => $request['gender']
+                // update from table Food Category where visible == true and id same with parameter
+                FoodCategory::where('visible', true)->where('id', $id)->update([
+                    'category' => $request['category']
                 ]);
 
-                //redirect to index gender
-                return redirect(route('gender.index'))->with(['success_update' => 'Gender Berhasil Diupdate']);
+                //redirect to index Food Category
+                return redirect(route('food-category.index'))->with(['success_update' => 'Kategori Berhasil Diupdate']);
             }
         } catch (Exception $e) {
-            return redirect(route('gender.index'))->with(['failed_update' => 'Gender Gagal Diupdate']);
+            return redirect(route('food-category.index'))->with(['failed_update' => 'Kategori Gagal Diupdate']);
         }
     }
 
@@ -132,14 +133,14 @@ class GenderController extends Controller
     {
         try {
             //update data to visible false
-            Gender::where('visible', true)->where('id', $id)->update([
+            FoodCategory::where('visible', true)->where('id', $id)->update([
                 'visible' => false
             ]);
 
             //redirect to index
-            return redirect(route('gender.index'))->with(['success_delete' => 'Gender Berhasil Dihapus']);
+            return redirect(route('food-category.index'))->with(['success_delete' => 'Kategori Berhasil Dihapus']);
         } catch (Exception $e) {
-            return redirect(route('gender.index'))->with(['failed_delete' => 'Gender Gagal Dihapus']);
+            return redirect(route('food-category.index'))->with(['failed_delete' => 'Kategori Gagal Dihapus']);
         }
     }
 }

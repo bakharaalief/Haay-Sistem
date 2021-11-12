@@ -56,6 +56,41 @@
           </ul>
         </li>
 
+        {{-- daftar menu Button --}}
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-birthday-cake"></i>
+            <p>Daftar Menu</p>
+            <i class="right fa fa-angle-left"></i>
+          </a>
+          <ul class="nav nav-treeview">
+
+            {{-- list daftar menu --}}
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>List</p>
+              </a>
+            </li>
+
+            {{-- list kategori --}}
+            <li class="nav-item">
+              <a href="{{ route('food-category.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Kategori</p>
+              </a>
+            </li>
+
+            {{-- list Topping --}}
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Topping</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
         {{-- logout button --}}
         <li class="nav-item">
           <a 

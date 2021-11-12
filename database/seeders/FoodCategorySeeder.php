@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class GenderSeeder extends Seeder
+class FoodCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,27 +15,27 @@ class GenderSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('genders')->delete();
+        DB::table('food_categories')->delete();
 
         $dt = Carbon::now()->setTimezone('Asia/Manila');
         $dateNow = $dt->toDateTimeString();
-        $genders = [
+        $categories = [
             [
                 'id' => 1,
-                'gender' => 'Laki - Laki',
+                'category' => 'Kue',
                 'visible' => true,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ],
             [
                 'id' => 2,
-                'gender' => 'Perempuan',
+                'category' => 'Snack',
                 'visible' => true,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ]
         ];
 
-        DB::table('genders')->insert($genders);
+        DB::table('food_categories')->insert($categories);
     }
 }

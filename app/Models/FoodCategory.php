@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gender extends Model
+class FoodCategory extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'gender',
+        'category',
         'visible'
     ];
 
-    public function getUser()
-    {
-        return $this->hasMany(User::class, 'gender', 'id');
-    }
+    use HasFactory;
 }

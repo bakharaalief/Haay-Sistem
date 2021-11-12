@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Level;
+use Exception;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $dataLevel = Level::all();
+        // get data from table level where visible == true
+        $dataLevel = Level::where('visible', true)->get();
+
+        //pass data to view
         return View('level.index')->with(compact('dataLevel'));
     }
 
@@ -37,7 +41,26 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //check data if exist in db
+            $cekAda = Level::where('visible', true)->where('level', $request['level'])->first();
+
+            //if exist
+            if (isset($cekAda)) {
+                return redirect(route('level.index'))->with(['failed_store' => 'Level Gagal Ditambah karena sudah terdaftar']);
+            }
+
+            //else
+            else {
+                Level::create([
+                    'level' => $request['level'],
+                    'visible' => true,
+                ]);
+                return redirect(route('level.index'))->with(['success_store' => 'Level Berhasil Ditambah']);
+            }
+        } catch (Exception $e) {
+            return redirect(route('level.index'))->with(['failed_store' => 'Level Gagal Ditambah']);
+        }
     }
 
     /**
@@ -48,7 +71,13 @@ class LevelController extends Controller
      */
     public function show($id)
     {
-        //
+        // get data from table level where visible == true and id same with paramete
+        $level = Level::where('visible', true)->findOrFail($id);
+
+        //return in json format
+        return response()->json([
+            'level' => $level->level,
+        ]);
     }
 
     /**
@@ -71,7 +100,28 @@ class LevelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            //check data if exist in db
+            $cekAda = Level::where('visible', true)->where('level', $request['level'])->first();
+
+            //if exist
+            if (isset($cekAda)) {
+                return redirect(route('level.index'))->with(['failed_store' => 'Level Gagal Diupdate karena sudah terdaftar']);
+            }
+
+            //else
+            else {
+                // update from table level where visible == true and id same with parameter
+                Level::where('visible', true)->where('id', $id)->update([
+                    'level' => $request['level']
+                ]);
+
+                //redirect to index level
+                return redirect(route('level.index'))->with(['success_update' => 'Level Berhasil Diupdate']);
+            }
+        } catch (Exception $e) {
+            return redirect(route('level.index'))->with(['failed_update' => 'Level Gagal Diupdate']);
+        }
     }
 
     /**
@@ -82,6 +132,16 @@ class LevelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            //update data to visible false
+            Level::where('visible', true)->where('id', $id)->update([
+                'visible' => false
+            ]);
+
+            //redirect to index
+            return redirect(route('level.index'))->with(['success_delete' => 'Level Berhasil Dihapus']);
+        } catch (Exception $e) {
+            return redirect(route('level.index'))->with(['failed_delete' => 'Level Gagal Dihapus']);
+        }
     }
 }

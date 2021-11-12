@@ -23,13 +23,15 @@ class LevelSeeder extends Seeder
         $levels = [
             [
                 'id' => 1,
-                'level' => 'admin',
+                'level' => 'Admin',
+                'visible' => true,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ],
             [
                 'id' => 2,
-                'level' => 'customer',
+                'level' => 'Customer',
+                'visible' => true,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ]

@@ -9,6 +9,11 @@ class Level extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'level',
+        'visible',
+    ];
+
     public function getUser()
     {
         return $this->hasMany(User::class, 'level', 'id');

@@ -14,7 +14,7 @@
 @endsection
 
 @section('page-name')
-<h1>Gender</h1>
+<h1>Kategori</h1>
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
       <div class="card">
 
         <div class="card-header">
-          <h3 class="card-title pr-auto">Data Table Gender</h3>
+          <h3 class="card-title pr-auto">Data Table Kategori</h3>
 
           <div class="card-tools">
             <button class="btn btn-success" data-toggle="modal" data-target="#modal-default">
@@ -37,22 +37,22 @@
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Jenis Gender</th>
+                <th>Kategori</th>
                 <th class="col-1">Edit</th>
                 <th class="col-1">Delete</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($dataGender as $gender)
+              @foreach ($dataFoodCategory as $foodCategory)
               <tr>
-                <td>{{ $gender->gender }}</td>
+                <td>{{ $foodCategory->category }}</td>
                 <td>
-                  <button class="btn btn-warning edit-gender" data-toggle="modal" data-id="{{$gender->id}}">
+                  <button class="btn btn-warning edit-food-category" data-toggle="modal" data-id="{{$foodCategory->id}}">
                   Edit
                   </button>
                 </td>
                 <td>
-                  <button class="btn btn-danger delete-gender" data-toggle="modal" data-id="{{$gender->id}}">
+                  <button class="btn btn-danger delete-food-category" data-toggle="modal" data-id="{{$foodCategory->id}}">
                     Delete
                   </button>
                 </td>
@@ -67,20 +67,20 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Tambah Gender</h4>
+                <h4 class="modal-title">Tambah Kategori</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
-              <form method="POST" action="{{ route('gender.store') }}">
+              <form method="POST" action="{{ route('food-category.store') }}">
                 @csrf
 
                 <div class="modal-body">
-                  {{-- form name gender --}}
+                  {{-- form name foodCategory --}}
                   <div class="form-group">
-                    <label for="genderName">Nama Gender</label>
-                    <input type="text" class="form-control" id="genderName" placeholder="Nama Gender" name="gender" required>
+                    <label for="categoryName">Nama Kategori</label>
+                    <input type="text" class="form-control" id="categoryName" placeholder="Nama Kategori" name="category" required>
                   </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -99,7 +99,7 @@
             <div class="modal-content">
 
               <div class="modal-header">
-                <h4 class="modal-title">Edit Gender</h4>
+                <h4 class="modal-title">Edit Kategori</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -112,8 +112,8 @@
                 <div class="modal-body">
 
                   <div class="form-group">
-                    <label for="genderName">Nama Gender</label>
-                    <input type="text" class="form-control" id="genderNameEdit" placeholder="Nama Gender" name="gender" required>
+                    <label for="categoryName">Nama Kategori</label>
+                    <input type="text" class="form-control" id="categoryNameEdit" placeholder="Nama Kategori" name="category" required>
                   </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -132,7 +132,7 @@
             <div class="modal-content">
 
               <div class="modal-header">
-                <h4 class="modal-title">Delete Gender</h4>
+                <h4 class="modal-title">Delete Kategori</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -143,7 +143,7 @@
                 @method('Delete')
 
                 <div class="modal-body">
-                  <p>Anda Yakin Ingin Menghapus Gender Ini ? </p>
+                  <p>Anda Yakin Ingin Menghapus Kategori Ini ? </p>
                 </div>
                 <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -196,19 +196,19 @@
 {{-- edit modal configuration --}}
 <script>
 $(function(){
-  $('.edit-gender').on("click", function(event) {
+  $('.edit-food-category').on("click", function(event) {
 
-    var gender_id = $(this).data('id');
+    var food_category_id = $(this).data('id');
     $.ajax({
-        url: '/admin/gender/' + gender_id,
+        url: '/admin/food-category/' + food_category_id,
         type: 'GET',
         dataType: 'json',
         error: function(req, err){ console.log('error : ' + err) }
     })
     .done(function(response) {
         $("#modal-default-2").modal('show');
-        $("#form-edit").attr('action', '/admin/gender/' + gender_id);
-        $("#genderNameEdit").val(response['gender']);
+        $("#form-edit").attr('action', '/admin/food-category/' + food_category_id);
+        $("#categoryNameEdit").val(response['category']);
     });
   });
 })
@@ -217,11 +217,11 @@ $(function(){
 {{-- delete model configurarion --}}
 <script>
   $(function(){
-    $('.delete-gender').on("click", function(event) {
+    $('.delete-food-category').on("click", function(event) {
   
       $("#modal-default-3").modal('show');
-      var gender_id = $(this).data('id');
-      $("#form-delete").attr('action', '/admin/gender/' + gender_id);
+      var food_category_id = $(this).data('id');
+      $("#form-delete").attr('action', '/admin/food-category/' + food_category_id);
     });
   })
 </script>
@@ -231,42 +231,42 @@ $(function(){
 <!-- Toastr -->
 <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
 
-{{-- berhasil tambah gender--}}
+{{-- berhasil tambah foodCategory--}}
 @if ($message = Session::get('success_store'))
   <script>
     toastr.success('{{ $message }}');
   </script>
 @endif
 
-{{-- gagal tambah gender--}}
+{{-- gagal tambah foodCategory--}}
 @if ($message = Session::get('failed_store'))
   <script>
     toastr.error('{{ $message }}');
   </script>
 @endif
 
-{{-- berhasil update gender--}}
+{{-- berhasil update foodCategory--}}
 @if ($message = Session::get('success_update'))
   <script>
     toastr.success('{{ $message }}');
   </script>
 @endif
 
-{{-- gagal update gender--}}
+{{-- gagal update foodCategory--}}
 @if ($message = Session::get('failed_update'))
   <script>
     toastr.error('{{ $message }}');
   </script>
 @endif
 
-{{-- berhasil delete gender--}}
+{{-- berhasil delete foodCategory--}}
 @if ($message = Session::get('success_delete'))
   <script>
      toastr.success('{{ $message }}');
   </script>
 @endif
 
-{{-- gagal delete gender--}}
+{{-- gagal delete foodCategory--}}
 @if ($message = Session::get('failed_delete'))
   <script>
     toastr.error('{{ $message }}');
