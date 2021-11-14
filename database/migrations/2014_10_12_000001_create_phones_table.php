@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFoodCategoriesTable extends Migration
+class CreatePhonesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,16 @@ class CreateFoodCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('food_categories', function (Blueprint $table) {
+        Schema::create('phones', function (Blueprint $table) {
             $table->id();
-            $table->text('category');
+
+            $table->foreignId('user')
+                ->references('id')
+                ->on('users')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->text('phone');
             $table->boolean('visible')->default(true);
             $table->boolean('delete')->default(false);
             $table->timestamps();
@@ -29,6 +36,6 @@ class CreateFoodCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('food_categories');
+        Schema::dropIfExists('phones');
     }
 }

@@ -25,6 +25,7 @@ class LevelSeeder extends Seeder
                 'id' => 1,
                 'level' => 'Admin',
                 'visible' => true,
+                'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ],
@@ -32,6 +33,7 @@ class LevelSeeder extends Seeder
                 'id' => 2,
                 'level' => 'Customer',
                 'visible' => true,
+                'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ]

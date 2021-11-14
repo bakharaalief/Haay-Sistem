@@ -16,7 +16,8 @@ class CreateLevelsTable extends Migration
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
             $table->text('level');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(true);
+            $table->boolean('delete')->default(false);
             $table->timestamps();
         });
     }

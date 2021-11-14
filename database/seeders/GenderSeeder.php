@@ -24,6 +24,7 @@ class GenderSeeder extends Seeder
                 'id' => 1,
                 'gender' => 'Laki - Laki',
                 'visible' => true,
+                'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ],
@@ -31,6 +32,7 @@ class GenderSeeder extends Seeder
                 'id' => 2,
                 'gender' => 'Perempuan',
                 'visible' => true,
+                'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ]

@@ -15,8 +15,8 @@ class GenderController extends Controller
      */
     public function index()
     {
-        // get data from table gender where visible == true
-        $dataGender = Gender::where('visible', true)->get();
+        // get data from table gender where delete == false
+        $dataGender = Gender::where('delete', false)->get();
 
         //pass data to view
         return view('gender.index')->with(compact('dataGender'));
@@ -42,7 +42,7 @@ class GenderController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = Gender::where('visible', true)->where('gender', $request['gender'])->first();
+            $cekAda = Gender::where('delete', false)->where('gender', $request['gender'])->first();
 
             //if exist
             if (isset($cekAda)) {
@@ -53,7 +53,6 @@ class GenderController extends Controller
             else {
                 Gender::create([
                     'gender' => $request['gender'],
-                    'visible' => true,
                 ]);
                 return redirect(route('gender.index'))->with(['success_store' => 'Gender Berhasil Ditambah']);
             }
@@ -70,8 +69,8 @@ class GenderController extends Controller
      */
     public function show($id)
     {
-        // get data from table gender where visible == true and id same with paramete
-        $gender = Gender::where('visible', true)->findOrFail($id);
+        // get data from table gender where delete == false and id same with paramete
+        $gender = Gender::where('delete', false)->findOrFail($id);
 
         //return in json format
         return response()->json([
@@ -100,7 +99,7 @@ class GenderController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = Gender::where('visible', true)->where('gender', $request['gender'])->first();
+            $cekAda = Gender::where('delete', false)->where('gender', $request['gender'])->first();
 
             //if exist
             if (isset($cekAda)) {
@@ -109,8 +108,8 @@ class GenderController extends Controller
 
             //else
             else {
-                // update from table gender where visible == true and id same with parameter
-                Gender::where('visible', true)->where('id', $id)->update([
+                // update from table gender where delete == false and id same with parameter
+                Gender::where('delete', false)->where('id', $id)->update([
                     'gender' => $request['gender']
                 ]);
 
@@ -131,9 +130,10 @@ class GenderController extends Controller
     public function destroy($id)
     {
         try {
-            //update data to visible false
-            Gender::where('visible', true)->where('id', $id)->update([
-                'visible' => false
+            //update data to delete false
+            Gender::where('delete', false)->where('id', $id)->update([
+                'visible' => false,
+                'delete' => true
             ]);
 
             //redirect to index

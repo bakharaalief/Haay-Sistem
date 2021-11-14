@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class FoodCategorySeeder extends Seeder
+class FoodToppingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,14 +15,15 @@ class FoodCategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('food_categories')->delete();
+        DB::table('food_toppings')->delete();
 
         $dt = Carbon::now()->setTimezone('Asia/Manila');
         $dateNow = $dt->toDateTimeString();
-        $categories = [
+        $toppings = [
             [
                 'id' => 1,
-                'category' => 'Kue',
+                'topping' => 'Mesis',
+                'price' => 1000,
                 'visible' => true,
                 'delete' => false,
                 'created_at' => $dateNow,
@@ -30,7 +31,8 @@ class FoodCategorySeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'category' => 'Snack',
+                'topping' => 'Tulisan',
+                'price' => 1000,
                 'visible' => true,
                 'delete' => false,
                 'created_at' => $dateNow,
@@ -38,6 +40,6 @@ class FoodCategorySeeder extends Seeder
             ]
         ];
 
-        DB::table('food_categories')->insert($categories);
+        DB::table('food_toppings')->insert($toppings);
     }
 }

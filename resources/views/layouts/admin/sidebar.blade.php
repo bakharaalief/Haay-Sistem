@@ -83,7 +83,7 @@
 
             {{-- list Topping --}}
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('food-topping.index') }}" class="nav-link">
                 <i class="nav-icon fa fa-circle-o"></i>
                 <p>Topping</p>
               </a>

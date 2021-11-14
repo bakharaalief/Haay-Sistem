@@ -15,8 +15,8 @@ class FoodCategoryController extends Controller
      */
     public function index()
     {
-        // get data from table food-category where visible == true
-        $dataFoodCategory = FoodCategory::where('visible', true)->get();
+        // get data from table food-category where delete == false
+        $dataFoodCategory = FoodCategory::where('delete', false)->get();
 
         //pass data to view
         return view('food-category.index')->with(compact('dataFoodCategory'));
@@ -42,7 +42,7 @@ class FoodCategoryController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = FoodCategory::where('visible', true)->where('category', $request['category'])->first();
+            $cekAda = FoodCategory::where('delete', false)->where('category', $request['category'])->first();
 
             //if exist
             if (isset($cekAda)) {
@@ -53,7 +53,6 @@ class FoodCategoryController extends Controller
             else {
                 FoodCategory::create([
                     'category' => $request['category'],
-                    'visible' => true,
                 ]);
                 return redirect(route('food-category.index'))->with(['success_store' => 'Kategori Berhasil Ditambah']);
             }
@@ -70,8 +69,8 @@ class FoodCategoryController extends Controller
      */
     public function show($id)
     {
-        // get data from table Food Category where visible == true and id same with paramete
-        $foodCategory = FoodCategory::where('visible', true)->findOrFail($id);
+        // get data from table Food Category where delete == false and id same with paramete
+        $foodCategory = FoodCategory::where('delete', false)->findOrFail($id);
 
         //return in json format
         return response()->json([
@@ -101,7 +100,7 @@ class FoodCategoryController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = FoodCategory::where('visible', true)->where('category', $request['category'])->first();
+            $cekAda = FoodCategory::where('delete', false)->where('category', $request['category'])->first();
 
             //if exist
             if (isset($cekAda)) {
@@ -110,8 +109,8 @@ class FoodCategoryController extends Controller
 
             //else
             else {
-                // update from table Food Category where visible == true and id same with parameter
-                FoodCategory::where('visible', true)->where('id', $id)->update([
+                // update from table Food Category where delete == false and id same with parameter
+                FoodCategory::where('delete', false)->where('id', $id)->update([
                     'category' => $request['category']
                 ]);
 
@@ -132,9 +131,10 @@ class FoodCategoryController extends Controller
     public function destroy($id)
     {
         try {
-            //update data to visible false
-            FoodCategory::where('visible', true)->where('id', $id)->update([
-                'visible' => false
+            //update data to delete false
+            FoodCategory::where('delete', false)->where('id', $id)->update([
+                'visible' => false,
+                'delete' => true
             ]);
 
             //redirect to index

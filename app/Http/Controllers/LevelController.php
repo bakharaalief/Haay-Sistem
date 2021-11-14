@@ -16,8 +16,8 @@ class LevelController extends Controller
      */
     public function index()
     {
-        // get data from table level where visible == true
-        $dataLevel = Level::where('visible', true)->get();
+        // get data from table level where delete == false
+        $dataLevel = Level::where('delete', false)->get();
 
         //pass data to view
         return View('level.index')->with(compact('dataLevel'));
@@ -43,7 +43,7 @@ class LevelController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = Level::where('visible', true)->where('level', $request['level'])->first();
+            $cekAda = Level::where('delete', false)->where('level', $request['level'])->first();
 
             //if exist
             if (isset($cekAda)) {
@@ -54,7 +54,6 @@ class LevelController extends Controller
             else {
                 Level::create([
                     'level' => $request['level'],
-                    'visible' => true,
                 ]);
                 return redirect(route('level.index'))->with(['success_store' => 'Level Berhasil Ditambah']);
             }
@@ -71,8 +70,8 @@ class LevelController extends Controller
      */
     public function show($id)
     {
-        // get data from table level where visible == true and id same with paramete
-        $level = Level::where('visible', true)->findOrFail($id);
+        // get data from table level where delete == false and id same with paramete
+        $level = Level::where('delete', false)->findOrFail($id);
 
         //return in json format
         return response()->json([
@@ -102,7 +101,7 @@ class LevelController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = Level::where('visible', true)->where('level', $request['level'])->first();
+            $cekAda = Level::where('delete', false)->where('level', $request['level'])->first();
 
             //if exist
             if (isset($cekAda)) {
@@ -111,8 +110,8 @@ class LevelController extends Controller
 
             //else
             else {
-                // update from table level where visible == true and id same with parameter
-                Level::where('visible', true)->where('id', $id)->update([
+                // update from table level where delete == false and id same with parameter
+                Level::where('delete', false)->where('id', $id)->update([
                     'level' => $request['level']
                 ]);
 
@@ -133,9 +132,10 @@ class LevelController extends Controller
     public function destroy($id)
     {
         try {
-            //update data to visible false
-            Level::where('visible', true)->where('id', $id)->update([
-                'visible' => false
+            //update data to delete false
+            Level::where('delete', false)->where('id', $id)->update([
+                'visible' => false,
+                'delete' => true
             ]);
 
             //redirect to index
