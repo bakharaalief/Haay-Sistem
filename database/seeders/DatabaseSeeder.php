@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
             GenderSeeder::class,
             UserSeeder::class,
             FoodCategorySeeder::class,
-            FoodToppingSeeder::class
         ]);
     }
 }

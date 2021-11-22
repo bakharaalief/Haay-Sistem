@@ -11,18 +11,14 @@
 
 <!-- Toastr -->
 <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css ') }}">
+
+{{-- switch input --}}
+<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap4-toggle-3.6.1/css/bootstrap4-toggle.min.css') }}" >
 @endsection
 
 @section('page-name')
-<h1>Tooping</h1>
+<h1>Size</h1>
 @endsection
-
-@php
-  function rupiah($angka){
-    $hasil_rupiah = "Rp " . number_format($angka, 0,',','.');
-    return $hasil_rupiah;
-  }
-@endphp
 
 @section('content')
 <div class="row">
@@ -30,7 +26,7 @@
       <div class="card">
 
         <div class="card-header">
-          <h3 class="card-title pr-auto">Data Table Tooping</h3>
+          <h3 class="card-title pr-auto">Data Table size</h3>
 
           <div class="card-tools">
             <button class="btn btn-success" data-toggle="modal" data-target="#modal-default">
@@ -44,24 +40,38 @@
           <table id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>Tooping</th>
-                <th class="col-3">Harga</th>
+                <th>size</th>
+                <th class="col-1">Status</th>
                 <th class="col-1">Edit</th>
                 <th class="col-1">Delete</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($dataFoodTopping as $foodTopping)
+              @foreach ($dataFoodSize as $foodSize)
               <tr>
-                <td>{{ $foodTopping->topping }}</td>
-                <td>{{ rupiah($foodTopping->price) }}</td>
+                <td>{{ $foodSize->size }}</td>
                 <td>
-                  <button class="btn btn-warning edit-food-topping" data-toggle="modal" data-id="{{$foodTopping->id}}">
+                  <input 
+                    class="visible-toogle"
+                    type="checkbox" 
+                    data-toggle="toggle" 
+                    data-onstyle="outline-primary" 
+                    data-offstyle="outline-secondary" 
+                    data-width="100"
+                    data-on="Aktif" 
+                    data-off="Mati"
+                    data-id="{{$foodSize->id}}"
+                    value="{{$foodSize->size}}"
+
+                    @if ($foodSize->visible) checked @endif>
+                </td>
+                <td>
+                  <button class="btn btn-warning edit-food-size" data-toggle="modal" data-id="{{$foodSize->id}}">
                   Edit
                   </button>
                 </td>
                 <td>
-                  <button class="btn btn-danger delete-food-topping" data-toggle="modal" data-id="{{$foodTopping->id}}">
+                  <button class="btn btn-danger delete-food-size" data-toggle="modal" data-id="{{$foodSize->id}}">
                     Delete
                   </button>
                 </td>
@@ -76,28 +86,21 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Tambah Tooping</h4>
+                <h4 class="modal-title">Tambah Kategori</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
-              <form method="POST" action="{{ route('food-topping.store') }}">
+              <form method="POST" action="{{ route('food-size.store') }}">
                 @csrf
 
                 <div class="modal-body">
-                  {{-- form name foodTopping --}}
+                  {{-- form name foodsize --}}
                   <div class="form-group">
-                    <label for="toppingName">Nama Tooping</label>
-                    <input type="text" class="form-control" id="toppingName" placeholder="Nama Tooping" name="topping" required>
+                    <label for="sizeName">Nama Kategori</label>
+                    <input type="text" class="form-control" id="sizeName" placeholder="Nama Kategori" name="size" required>
                   </div>
-
-                  {{-- form price foodTopping --}}
-                  <div class="form-group">
-                    <label for="toppingName">Harga Tooping</label>
-                    <input type="text" class="form-control" id="toppingPrice" placeholder="Harga Tooping" name="price" required>
-                  </div>
-
                 </div>
                 <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -115,7 +118,7 @@
             <div class="modal-content">
 
               <div class="modal-header">
-                <h4 class="modal-title">Edit Tooping</h4>
+                <h4 class="modal-title">Edit Kategori</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,14 +131,8 @@
                 <div class="modal-body">
 
                   <div class="form-group">
-                    <label for="toppingName">Nama Tooping</label>
-                    <input type="text" class="form-control" id="toppingNameEdit" placeholder="Nama Tooping" name="topping" required>
-                  </div>
-
-                  {{-- form price foodTopping --}}
-                  <div class="form-group">
-                    <label for="toppingName">Harga Tooping</label>
-                    <input type="text" class="form-control" id="toppingPriceEdit" placeholder="Harga Tooping" name="price" required>
+                    <label for="sizeName">Nama Kategori</label>
+                    <input type="text" class="form-control" id="sizeNameEdit" placeholder="Nama Size" name="size" required>
                   </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -154,7 +151,7 @@
             <div class="modal-content">
 
               <div class="modal-header">
-                <h4 class="modal-title">Delete Tooping</h4>
+                <h4 class="modal-title">Delete Kategori</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -165,7 +162,7 @@
                 @method('Delete')
 
                 <div class="modal-body">
-                  <p>Anda Yakin Ingin Menghapus Tooping Ini ? </p>
+                  <p>Anda Yakin Ingin Menghapus Kategori Ini ? </p>
                 </div>
                 <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -215,72 +212,63 @@
   });
 </script>
 
-{{-- Rupiah input configuration --}}
+{{-- toogle js --}}
+<script src="{{ asset('assets/plugins/bootstrap4-toggle-3.6.1/js/bootstrap4-toggle.min.js') }}"></script>
+
+{{-- toogle configuration --}}
 <script>
-function formatRupiah(angka, prefix){
-	var number_string = angka.replace(/[^,\d]/g, '').toString(),
-	split   		= number_string.split(','),
-	sisa     		= split[0].length % 3,
-	rupiah     		= split[0].substr(0, sisa),
-	ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
- 
-	// tambahkan titik jika yang di input sudah menjadi angka ribuan
-	if(ribuan){
-		separator = sisa ? '.' : '';
-		rupiah += separator + ribuan.join('.');
-	}
- 
-	rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-	return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-}
-
 $(function(){
-  $('#toppingPrice').keyup(function(){
-    var num = $('#toppingPrice').val()
-    var hasil = formatRupiah(num, "Rp. ");
-    $('#toppingPrice').val(hasil);
-  });
+  $('.visible-toogle').change(function(){
+    var status = $(this).prop('checked') == true ? 1 : 0;
+    var food_size_id = $(this).data('id');
+    var food_size_val = $(this).val();
 
-  $('#toppingPriceEdit').keyup(function(){
-    var num = $('#toppingPriceEdit').val()
-    var hasil = formatRupiah(num, "Rp. ");
-    $('#toppingPriceEdit').val(hasil);
-  });
-});
+    $.ajax({
+          url: '/admin/food-size/' + food_size_id + '/change-visible',
+          type: 'PUT',
+          // dataType: '',
+          // data : {'visible' : status },
+          // error: function(req, err){ 
+          //   console.log('error : ' + err) 
+          // },
+          // success: function(data) {
+          //   console.log(data);
+          //   console.log('process sucess');
+          // }
+      })
+  })
+})
 </script>
 
 {{-- edit modal configuration --}}
 <script>
-$(function(){
-  $('.edit-food-topping').on("click", function(event) {
-
-    var food_topping_id = $(this).data('id');
-    $.ajax({
-        url: '/admin/food-topping/' + food_topping_id,
-        type: 'GET',
-        dataType: 'json',
-        error: function(req, err){ console.log('error : ' + err) }
-    })
-    .done(function(response) {
-        $("#modal-default-2").modal('show');
-        $("#form-edit").attr('action', '/admin/food-topping/' + food_topping_id);
-        $("#toppingNameEdit").val(response['topping']);
-
-        var hasil = formatRupiah(response['price'].toString(), "Rp. ");
-        $("#toppingPriceEdit").val(hasil);
+  $(function(){
+    $('.edit-food-size').on("click", function(event) {
+      
+      var food_size_id = $(this).data('id');
+      $.ajax({
+          url: '/admin/food-size/' + food_size_id,
+          type: 'GET',
+          dataType: 'json',
+          error: function(req, err){ console.log('error : ' + err) }
+      })
+      .done(function(response) {
+          $("#modal-default-2").modal('show');
+          $("#form-edit").attr('action', '/admin/food-size/' + food_size_id);
+          $("#sizeNameEdit").val(response['size']);
+      });
     });
-  });
-})
+  })
 </script>
 
 {{-- delete model configurarion --}}
 <script>
   $(function(){
-    $('.delete-food-topping').on("click", function(event) {
-  
+    $('.delete-food-size').on("click", function(event) {
+
       $("#modal-default-3").modal('show');
-      var food_topping_id = $(this).data('id');
-      $("#form-delete").attr('action', '/admin/food-topping/' + food_topping_id);
+      var food_size_id = $(this).data('id');
+      $("#form-delete").attr('action', '/admin/food-size/' + food_size_id);
     });
   })
 </script>
@@ -290,42 +278,42 @@ $(function(){
 <!-- Toastr -->
 <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
 
-{{-- berhasil tambah foodTopping--}}
+{{-- berhasil tambah foodsize--}}
 @if ($message = Session::get('success_store'))
   <script>
     toastr.success('{{ $message }}');
   </script>
 @endif
 
-{{-- gagal tambah foodTopping--}}
+{{-- gagal tambah foodsize--}}
 @if ($message = Session::get('failed_store'))
   <script>
     toastr.error('{{ $message }}');
   </script>
 @endif
 
-{{-- berhasil update foodTopping--}}
+{{-- berhasil update foodsize--}}
 @if ($message = Session::get('success_update'))
   <script>
     toastr.success('{{ $message }}');
   </script>
 @endif
 
-{{-- gagal update foodTopping--}}
+{{-- gagal update foodsize--}}
 @if ($message = Session::get('failed_update'))
   <script>
     toastr.error('{{ $message }}');
   </script>
 @endif
 
-{{-- berhasil delete foodTopping--}}
+{{-- berhasil delete foodsize--}}
 @if ($message = Session::get('success_delete'))
   <script>
      toastr.success('{{ $message }}');
   </script>
 @endif
 
-{{-- gagal delete foodTopping--}}
+{{-- gagal delete foodsize--}}
 @if ($message = Session::get('failed_delete'))
   <script>
     toastr.error('{{ $message }}');

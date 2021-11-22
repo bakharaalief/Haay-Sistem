@@ -30,6 +30,8 @@ class CreateFoodMenusTable extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
+            $table->text('link_image');
+
             $table->boolean('visible')->default(true);
             $table->boolean('delete')->default(false);
             $table->timestamps();

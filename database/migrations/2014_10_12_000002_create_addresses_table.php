@@ -22,7 +22,7 @@ class CreateAddressesTable extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->text('Alamat');
+            $table->text('address');
             $table->boolean('visible')->default(true);
             $table->boolean('delete')->default(false);
             $table->timestamps();

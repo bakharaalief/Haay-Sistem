@@ -16,10 +16,20 @@ class CreateFoodMenuTypesTable extends Migration
         Schema::create('food_menu_types', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('food_menu')->unsigned();
-            $table->bigInteger('food_type')->unsigned();
+            $table->foreignId('food_menu')
+                ->references('id')
+                ->on('food_menus')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreignId('food_type')
+                ->references('id')
+                ->on('food_types')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
 
             $table->bigInteger('price');
+
             $table->boolean('visible')->default(true);
             $table->boolean('delete')->default(false);
             $table->timestamps();

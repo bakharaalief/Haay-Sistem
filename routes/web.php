@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FoodCategoryController;
+use App\Http\Controllers\FoodSizeController;
 use App\Http\Controllers\FoodToppingController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\HomeController;
@@ -32,8 +33,12 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::resource('/user', UserController::class);
     Route::resource('/level', LevelController::class);
     Route::resource('/gender', GenderController::class);
+
     Route::resource('/food-category', FoodCategoryController::class);
-    Route::resource('/food-topping', FoodToppingController::class);
+
+    Route::resource('/food-size', FoodSizeController::class);
+    Route::put('/food-size/{food-size}/change-visible', [FoodCategoryController::class, 'updateVisible'])
+        ->name('food-size.changeVisible');
 });
 
 //customer route

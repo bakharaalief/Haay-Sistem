@@ -22,14 +22,6 @@ class CreateOrdersTable extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreignId('food_menu_type')
-                ->references('id')
-                ->on('food_menu_types')
-                ->restrictOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->integer('amount');
-
             $table->foreignId('phone')
                 ->references('id')
                 ->on('phones')
@@ -42,11 +34,23 @@ class CreateOrdersTable extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
+            $table->foreignId('order_process_time')
+                ->references('id')
+                ->on('order_process_times')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->bigInteger('order_process_price_now');
+
             $table->foreignId('order_delivery')
                 ->references('id')
                 ->on('order_deliveries')
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
+
+            $table->bigInteger('order_delivery_price_now');
+
+            $table->text('bukti_transfer');
 
             $table->foreignId('order_status')
                 ->references('id')

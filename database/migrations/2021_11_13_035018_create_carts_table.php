@@ -22,14 +22,6 @@ class CreateCartsTable extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreignId('food_menu_type')
-                ->references('id')
-                ->on('food_menu_types')
-                ->restrictOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->integer('amount');
-
             $table->boolean('delete')->default(false);
             $table->timestamps();
         });
