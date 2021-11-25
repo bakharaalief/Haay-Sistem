@@ -45,14 +45,6 @@
                 <p>Level</p>
               </a>
             </li>
-
-            {{-- level gender --}}
-            <li class="nav-item">
-              <a href="{{ route('gender.index') }}" class="nav-link">
-                <i class="nav-icon fa fa-circle-o"></i>
-                <p>Gender</p>
-              </a>
-            </li>
           </ul>
         </li>
 
@@ -67,7 +59,7 @@
 
             {{-- list daftar menu --}}
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('food-menu.index') }}" class="nav-link">
                 <i class="nav-icon fa fa-circle-o"></i>
                 <p>List</p>
               </a>
@@ -81,11 +73,19 @@
               </a>
             </li>
 
-            {{-- list Topping --}}
+            {{-- list Size --}}
             <li class="nav-item">
               <a href="{{ route('food-size.index') }}" class="nav-link">
                 <i class="nav-icon fa fa-circle-o"></i>
                 <p>Size</p>
+              </a>
+            </li>
+
+            {{-- list type --}}
+            <li class="nav-item">
+              <a href="{{ route('food-type.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Type</p>
               </a>
             </li>
           </ul>

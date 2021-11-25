@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FoodCategory;
+use App\Models\FoodType;
 use Exception;
 use Illuminate\Http\Request;
 
-class FoodCategoryController extends Controller
+class FoodTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,11 @@ class FoodCategoryController extends Controller
      */
     public function index()
     {
-        // get data from table food-category where delete == false
-        $dataFoodCategory = FoodCategory::where('delete', false)->get();
+        // get data from table food-type where delete == false
+        $dataFoodType = FoodType::where('delete', false)->get();
 
         //pass data to view
-        return view('food-category.index')->with(compact('dataFoodCategory'));
+        return view('food-type.index')->with(compact('dataFoodType'));
     }
 
     /**
@@ -42,22 +42,22 @@ class FoodCategoryController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = FoodCategory::where('delete', false)->where('category', $request['category'])->first();
+            $cekAda = FoodType::where('delete', false)->where('type', $request['type'])->first();
 
             //if exist
             if (isset($cekAda)) {
-                return redirect(route('food-category.index'))->with(['failed_store' => 'Kategori Gagal Ditambah karena sudah terdaftar']);
+                return redirect(route('food-type.index'))->with(['failed_store' => 'Tipe Gagal Ditambah karena sudah terdaftar']);
             }
 
             //else
             else {
-                FoodCategory::create([
-                    'category' => $request['category'],
+                FoodType::create([
+                    'type' => $request['type'],
                 ]);
-                return redirect(route('food-category.index'))->with(['success_store' => 'Kategori Berhasil Ditambah']);
+                return redirect(route('food-type.index'))->with(['success_store' => 'Tipe Berhasil Ditambah']);
             }
         } catch (Exception $e) {
-            return redirect(route('food-category.index'))->with(['failed_store' => 'Kategori Gagal Ditambah']);
+            return redirect(route('food-type.index'))->with(['failed_store' => 'Tipe Gagal Ditambah']);
         }
     }
 
@@ -69,12 +69,12 @@ class FoodCategoryController extends Controller
      */
     public function show($id)
     {
-        // get data from table Food Category where delete == false and id same with paramete
-        $foodCategory = FoodCategory::where('delete', false)->findOrFail($id);
+        // get data from table Food type where delete == false and id same with paramete
+        $foodType = FoodType::where('delete', false)->findOrFail($id);
 
         //return in json format
         return response()->json([
-            'category' => $foodCategory->category,
+            'type' => $foodType->type,
         ]);
     }
 
@@ -100,25 +100,25 @@ class FoodCategoryController extends Controller
     {
         try {
             //check data if exist in db
-            $cekAda = FoodCategory::where('delete', false)->where('category', $request['category'])->first();
+            $cekAda = FoodType::where('delete', false)->where('type', $request['type'])->first();
 
             //if exist
             if (isset($cekAda)) {
-                return redirect(route('food-category.index'))->with(['failed_store' => 'Kategori Gagal Diupdate karena sudah terdaftar']);
+                return redirect(route('food-type.index'))->with(['failed_store' => 'Tipe Gagal Diupdate karena sudah terdaftar']);
             }
 
             //else
             else {
-                // update from table Food Category where delete == false and id same with parameter
-                FoodCategory::where('delete', false)->where('id', $id)->update([
-                    'category' => $request['category']
+                // update from table Food type where delete == false and id same with parameter
+                FoodType::where('delete', false)->where('id', $id)->update([
+                    'type' => $request['type']
                 ]);
 
-                //redirect to index Food Category
-                return redirect(route('food-category.index'))->with(['success_update' => 'Kategori Berhasil Diupdate']);
+                //redirect to index Food type
+                return redirect(route('food-type.index'))->with(['success_update' => 'Tipe Berhasil Diupdate']);
             }
         } catch (Exception $e) {
-            return redirect(route('food-category.index'))->with(['failed_update' => 'Kategori Gagal Diupdate']);
+            return redirect(route('food-type.index'))->with(['failed_update' => 'Tipe Gagal Diupdate']);
         }
     }
 
@@ -132,15 +132,15 @@ class FoodCategoryController extends Controller
     {
         try {
             //update data to delete false
-            FoodCategory::where('delete', false)->where('id', $id)->update([
+            FoodType::where('delete', false)->where('id', $id)->update([
                 'visible' => false,
                 'delete' => true
             ]);
 
             //redirect to index
-            return redirect(route('food-category.index'))->with(['success_delete' => 'Kategori Berhasil Dihapus']);
+            return redirect(route('food-type.index'))->with(['success_delete' => 'Tipe Berhasil Dihapus']);
         } catch (Exception $e) {
-            return redirect(route('food-category.index'))->with(['failed_delete' => 'Kategori Gagal Dihapus']);
+            return redirect(route('food-type.index'))->with(['failed_delete' => 'Tipe Gagal Dihapus']);
         }
     }
 
@@ -148,16 +148,16 @@ class FoodCategoryController extends Controller
     {
         try {
             //get data
-            $category = $request->post();
+            $type = $request->post();
 
             //check data if exist in db
-            $cekAda = FoodCategory::where('delete', false)->where('id', $category['category_id'])->first();
+            $cekAda = FoodType::where('delete', false)->where('id', $type['type_id'])->first();
 
             //if exist
             if (isset($cekAda)) {
-                // update from table Food category where delete == false and id same with parameter
-                FoodCategory::where('delete', false)->where('id', $category['category_id'])->update([
-                    'visible' => $category['category_visible']
+                // update from table Food type where delete == false and id same with parameter
+                FoodType::where('delete', false)->where('id', $type['type_id'])->update([
+                    'visible' => $type['type_visible']
                 ]);
 
                 return "berhasil update";

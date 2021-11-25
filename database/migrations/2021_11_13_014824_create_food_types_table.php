@@ -15,7 +15,7 @@ class CreateFoodTypesTable extends Migration
     {
         Schema::create('food_types', function (Blueprint $table) {
             $table->id();
-            $table->text('types');
+            $table->text('type');
             $table->boolean('visible')->default(true);
             $table->boolean('delete')->default(false);
             $table->timestamps();

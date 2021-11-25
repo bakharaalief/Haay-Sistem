@@ -11,6 +11,9 @@
 
 <!-- Toastr -->
 <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css ') }}">
+
+{{-- switch input --}}
+<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap4-toggle-3.6.1/css/bootstrap4-toggle.min.css') }}" >
 @endsection
 
 @section('page-name')
@@ -38,8 +41,7 @@
             <thead>
               <tr>
                 <th>Kategori</th>
-                <th>Status</th>
-                <th class="col-2">Ganti Status</th>
+                <th class="col-1">Status</th>
                 <th class="col-1">Edit</th>
                 <th class="col-1">Delete</th>
               </tr>
@@ -48,8 +50,21 @@
               @foreach ($dataFoodCategory as $foodCategory)
               <tr>
                 <td>{{ $foodCategory->category }}</td>
-                <td>{{ ($foodCategory->visible ? "Aktif" : "Non-Aktif") }}</td>
-                 <td>{{ ($foodCategory->visible ? "Aktif" : "Non-Aktif") }}</td>
+                <td>
+                  <input 
+                    class="visible-toogle"
+                    type="checkbox" 
+                    data-toggle="toggle" 
+                    data-onstyle="outline-primary" 
+                    data-offstyle="outline-secondary" 
+                    data-width="100"
+                    data-on="Aktif" 
+                    data-off="Mati"
+                    data-id="{{$foodCategory->id}}"
+                    value="{{$foodCategory->category}}"
+
+                    @if ($foodCategory->visible) checked @endif>
+                </td>
                 <td>
                   <button class="btn btn-warning edit-food-category" data-toggle="modal" data-id="{{$foodCategory->id}}">
                   Edit
@@ -84,7 +99,7 @@
                   {{-- form name foodCategory --}}
                   <div class="form-group">
                     <label for="categoryName">Nama Kategori</label>
-                    <input type="text" class="form-control" id="categoryName" placeholder="Nama Kategori" name="category" required>
+                    <input type="text" class="form-control" id="categoryName" placeholder="Masukkan Nama Kategori" name="category" required>
                   </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -117,7 +132,7 @@
 
                   <div class="form-group">
                     <label for="categoryName">Nama Kategori</label>
-                    <input type="text" class="form-control" id="categoryNameEdit" placeholder="Nama Kategori" name="category" required>
+                    <input type="text" class="form-control" id="categoryNameEdit" placeholder="Masukkan Nama Kategori" name="category" required>
                   </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -195,6 +210,38 @@
       .container()
       .appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
+</script>
+
+{{-- toogle js --}}
+<script src="{{ asset('assets/plugins/bootstrap4-toggle-3.6.1/js/bootstrap4-toggle.min.js') }}"></script>
+
+{{-- visible button configuration --}}
+<script>
+  $(function(){
+    $('.visible-toogle').change(function(){
+      var status = $(this).prop('checked') == true ? 1 : 0;
+      var food_category_id = $(this).data('id');
+
+      $.ajax({
+            url: '/admin/food-category/' + food_category_id + '/change-visible',
+            type: 'PUT',
+            dataType: 'text',
+            data : {
+              category_id  : food_category_id,
+              category_visible : status, 
+              _token: "{{ csrf_token() }}"
+            },
+            // encode : true,
+            error: function(req, err){ 
+              toastr.error('Gagal Update Status');
+            },
+            success: function(data) {
+              if(data == 'berhasil update')  toastr.success('Berhasil Update Status');
+              else toastr.error('Gagal Update Status');
+            }
+        })
+    })
+  })
 </script>
 
 {{-- edit modal configuration --}}

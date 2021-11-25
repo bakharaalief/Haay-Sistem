@@ -40,7 +40,25 @@ class FoodSizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //check data if exist in db
+            $cekAda = FoodSize::where('delete', false)->where('size', $request['size'])->first();
+
+            //if exist
+            if (isset($cekAda)) {
+                return redirect(route('food-size.index'))->with(['failed_store' => 'size Gagal Ditambah karena sudah terdaftar']);
+            }
+
+            //else
+            else {
+                FoodSize::create([
+                    'size' => $request['size'],
+                ]);
+                return redirect(route('food-size.index'))->with(['success_store' => 'size Berhasil Ditambah']);
+            }
+        } catch (Exception $e) {
+            return redirect(route('food-size.index'))->with(['failed_store' => 'size Gagal Ditambah']);
+        }
     }
 
     /**
@@ -86,52 +104,22 @@ class FoodSizeController extends Controller
 
             //if exist
             if (isset($cekAda)) {
-                return redirect(route('food-size.index'))->with(['failed_store' => 'Kategori Gagal Diupdate karena sudah terdaftar']);
+                return redirect(route('food-size.index'))->with(['failed_store' => 'size Gagal Diupdate karena sudah terdaftar']);
             }
 
             //else
             else {
                 // update from table Food size where delete == false and id same with parameter
                 FoodSize::where('delete', false)->where('id', $id)->update([
-                    'size' => $request['size'],
-                    'visible' => $request['visible']
+                    'size' => $request['size']
                 ]);
 
                 //redirect to index Food size
-                return redirect(route('food-size.index'))->with(['success_update' => 'Kategori Berhasil Diupdate']);
+                return redirect(route('food-size.index'))->with(['success_update' => 'size Berhasil Diupdate']);
             }
         } catch (Exception $e) {
-            return redirect(route('food-size.index'))->with(['failed_update' => 'Kategori Gagal Diupdate']);
+            return redirect(route('food-size.index'))->with(['failed_update' => 'size Gagal Diupdate']);
         }
-    }
-
-    public function updateVisible(Request $request, $id)
-    {
-        return dd($request);
-
-        // try {
-        //     //check data if exist in db
-        //     $cekAda = FoodSize::where('delete', false)->where('size', $request['size'])->first();
-
-        //     //if exist
-        //     if (isset($cekAda)) {
-        //         return redirect(route('food-size.index'))->with(['failed_store' => 'Kategori Gagal Diupdate karena sudah terdaftar']);
-        //     }
-
-        //     //else
-        //     else {
-        //         // update from table Food size where delete == false and id same with parameter
-        //         FoodSize::where('delete', false)->where('id', $id)->update([
-        //             'size' => $request['size'],
-        //             'visible' => $request['visible']
-        //         ]);
-
-        //         //redirect to index Food size
-        //         return redirect(route('food-size.index'))->with(['success_update' => 'Kategori Berhasil Diupdate']);
-        //     }
-        // } catch (Exception $e) {
-        //     return redirect(route('food-size.index'))->with(['failed_update' => 'Kategori Gagal Diupdate']);
-        // }
     }
 
     /**
@@ -142,6 +130,43 @@ class FoodSizeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            //update data to delete false
+            FoodSize::where('delete', false)->where('id', $id)->update([
+                'visible' => false,
+                'delete' => true
+            ]);
+
+            //redirect to index
+            return redirect(route('food-size.index'))->with(['success_delete' => 'size Berhasil Dihapus']);
+        } catch (Exception $e) {
+            return redirect(route('food-size.index'))->with(['failed_delete' => 'size Gagal Dihapus']);
+        }
+    }
+
+    public function updateVisible(Request $request)
+    {
+        try {
+            //get data
+            $size = $request->post();
+
+            //check data if exist in db
+            $cekAda = FoodSize::where('delete', false)->where('id', $size['size_id'])->first();
+
+            //if exist
+            if (isset($cekAda)) {
+                // update from table Food size where delete == false and id same with parameter
+                FoodSize::where('delete', false)->where('id', $size['size_id'])->update([
+                    'visible' => $size['size_visible']
+                ]);
+
+                return "berhasil update";
+            }
+
+            //else
+            else return "gagal update";
+        } catch (Exception $e) {
+            return "gagal update";
+        }
     }
 }

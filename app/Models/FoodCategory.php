@@ -9,8 +9,14 @@ class FoodCategory extends Model
 {
     protected $fillable = [
         'category',
-        'visible'
+        'visible',
+        'delete'
     ];
 
     use HasFactory;
+
+    public function getMenu()
+    {
+        return $this->hasMany(FoodMenu::class, 'food_category', 'id');
+    }
 }
