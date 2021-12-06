@@ -12,7 +12,9 @@ class FoodMenu extends Model
         'description',
         'food_category',
         'food_size',
-        'link_image'
+        'link_image',
+        'visible',
+        'delete'
     ];
 
     use HasFactory;
@@ -25,5 +27,12 @@ class FoodMenu extends Model
     public function getSize()
     {
         return $this->belongsTo(FoodSize::class, 'food_size', 'id');
+    }
+
+    public function getFoodType()
+    {
+        return $this
+            ->belongsToMany(FoodType::class, 'food_menu_types', 'food_menu', 'food_type')
+            ->withPivot('price');
     }
 }

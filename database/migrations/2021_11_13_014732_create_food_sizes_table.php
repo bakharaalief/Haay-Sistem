@@ -16,7 +16,7 @@ class CreateFoodSizesTable extends Migration
         Schema::create('food_sizes', function (Blueprint $table) {
             $table->id();
             $table->text('size');
-            $table->boolean('visible')->default(true);
+            $table->boolean('visible')->default(false);
             $table->boolean('delete')->default(false);
             $table->timestamps();
         });

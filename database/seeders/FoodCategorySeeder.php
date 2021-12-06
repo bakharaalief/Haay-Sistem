@@ -23,7 +23,7 @@ class FoodCategorySeeder extends Seeder
             [
                 'id' => 1,
                 'category' => 'Kue',
-                'visible' => true,
+                'visible' => false,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
@@ -31,7 +31,7 @@ class FoodCategorySeeder extends Seeder
             [
                 'id' => 2,
                 'category' => 'Snack',
-                'visible' => true,
+                'visible' => false,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow

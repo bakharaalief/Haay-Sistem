@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\FoodMenuController;
+use App\Http\Controllers\FoodMenuTypeController;
 use App\Http\Controllers\FoodSizeController;
 use App\Http\Controllers\FoodTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\NormalController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,9 +23,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//normal route
+Route::prefix('/')->group(function () {
+    Route::get('/', [NormalController::class, 'homeIndex'])->name('normal.home');
+    Route::get('/menu', [NormalController::class, 'menuIndex'])->name('normal.menu');
+    Route::get('/menu/{id}', [NormalController::class, 'menuDetail'])->name('normal.menuDetail');
 });
+
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+
 
 Auth::routes();
 
@@ -34,6 +49,10 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::resource('/level', LevelController::class);
 
     //food menu
+    Route::put('/food-menu/{id}/change-visible', [FoodMenuController::class, 'updateVisible'])
+        ->name('food-menu.changeVisible');
+    Route::get('/food-menu/{id}/all-type', [FoodMenuController::class, 'allType'])
+        ->name('food-menu.allType');
     Route::resource('/food-menu', FoodMenuController::class);
 
     //food category
@@ -50,7 +69,12 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::put('/food-type/{id}/change-visible', [FoodTypeController::class, 'updateVisible'])
         ->name('food-type.changeVisible');
     Route::resource('/food-type', FoodTypeController::class);
+
+    //food menu type
+    Route::resource('/food-menu-type', FoodMenuTypeController::class);
 });
+
+
 
 //customer route
 Route::prefix('/home')->middleware(['auth'])->group(function () {

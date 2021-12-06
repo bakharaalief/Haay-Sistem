@@ -14,4 +14,9 @@ class FoodType extends Model
     ];
 
     use HasFactory;
+
+    public function getFoodMenu()
+    {
+        return $this->belongsToMany(FoodMenu::class, 'food_menu_types', 'food_type', 'food_menu');
+    }
 }

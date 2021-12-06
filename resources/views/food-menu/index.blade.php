@@ -46,6 +46,7 @@
                 <th>Ukuran</th>
                 <th>Photo</th>
                 <th class="col-1">Status</th>
+                <th>Detail</th>
                 <th class="col-1">Edit</th>
                 <th class="col-1">Delete</th>
               </tr>
@@ -78,6 +79,11 @@
                     value="{{$foodMenu->name}}"
 
                     @if ($foodMenu->visible) checked @endif>
+                </td>
+                <td>
+                  <button class="btn btn-info detail-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}" >
+                  Detail
+                  </button>
                 </td>
                 <td>
                   <button class="btn btn-warning edit-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}">
@@ -171,7 +177,7 @@
                 </button>
               </div>
 
-              <form method="POST" id="form-edit">
+              <form method="POST" id="form-edit" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -212,7 +218,7 @@
                   {{-- form photo food menu --}}
                   <div class="form-group">
                     <label for="menuPhotoEdit">Foto Menu</label>
-                    <input type="file" class="form-control-file" id="menuPhotoEdit" name="menu_photo" placeholder="Masukkan File JIka Ingin Menggani Photo">
+                    <input type="file" class="form-control-file" id="menuPhotoEdit" name="menu_photo">
                   </div>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -247,6 +253,132 @@
                 <div class="modal-footer justify-content-between">
                   <button menu="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   <button menu="submit" class="btn btn-danger">Iya</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        {{-- detail modal --}}
+        <div class="modal fade" id="modal-default-4">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modalDetailTitle">Kentaki</h4>
+              </div>
+              <div class="modal-body">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Nama</th>
+                      <th>Dekripsi</th>
+                      <th>Kategori</th>
+                      <th>Ukuran</th>
+                      <th>Photo</th>
+                      <th class="col-1">Status</th>
+                      <th>Detail</th>
+                      <th class="col-1">Edit</th>
+                      <th class="col-1">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modalDetailTable">
+                    {{-- @foreach ($dataFoodMenu as $foodMenu)
+                    <tr>
+                      <td>{{ $foodMenu->name }}</td>
+                      <td>{{ $foodMenu->description }}</td>
+                      <td>{{ $foodMenu->getCategory->category }}</td>
+                      <td>{{ $foodMenu->getSize->size }}</td>
+                      <td>
+                        <img 
+                          src="{{ asset('images/foto_menu/' . $foodMenu->link_image ) }}" 
+                          class="img-thumbnail"
+                          width="250"
+                          height="250">
+                      </td>
+                      <td>
+                        <input 
+                          class="visible-toogle"
+                          type="checkbox" 
+                          data-toggle="toggle" 
+                          data-onstyle="outline-primary" 
+                          data-offstyle="outline-secondary" 
+                          data-width="100"
+                          data-on="Aktif" 
+                          data-off="Mati"
+                          data-id="{{$foodMenu->id}}"
+                          value="{{$foodMenu->name}}"
+      
+                          @if ($foodMenu->visible) checked @endif>
+                      </td>
+                      <td>
+                        <button class="btn btn-info detail-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}">
+                        Detail
+                        </button>
+                      </td>
+                      <td>
+                        <button class="btn btn-warning edit-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}">
+                        Edit
+                        </button>
+                      </td>
+                      <td>
+                        <button class="btn btn-danger delete-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                    @endforeach --}}
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" 
+                data-toggle="modal" 
+                data-target="#modal-default-5">Tambah Tipe Menu</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{-- detail modal tambah --}}
+        <div class="modal fade" id="modal-default-5">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Tambah Tipe Menu</h4>
+                <button menu="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form method="POST" action="{{ route('food-menu-type.store') }}">
+                @csrf
+
+                <div class="modal-body">
+                  {{-- form type food menu --}}
+                  <div class="form-group">
+                    <label for="menuType">Tipe Menu</label>
+                    <select class="form-control" id="menuType" name="menu_type">
+                        @foreach ($dataFoodType as $foodType)
+                        <option value="{{ $foodType->id }}">{{ $foodType->type }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+
+                  {{-- form price food menu --}}
+                  <div class="form-group">
+                    <label for="menuPrice">Harga Menu</label>
+                    <input menu="text" class="form-control" id="menuPrice" placeholder="Masukkan Harga Menu" name="menu_price" required>
+                  </div>
+
+                  {{-- form menu id hidden --}}
+                  <input menu="text" class="form-control" id="menuId" placeholder="Masukkan Harga Menu" name="menu_id" required hidden>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button menu="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button menu="submit" class="btn btn-primary">Tambah</button>
                 </div>
 
               </form>
@@ -304,8 +436,8 @@
 
       $.ajax({
             url: '/admin/food-menu/' + food_menu_id + '/change-visible',
-            menu: 'PUT',
-            datamenu: 'text',
+            type: 'PUT',
+            dataType: 'text',
             data : {
               menu_id  : food_menu_id,
               menu_visible : status, 
@@ -357,6 +489,69 @@
       var food_menu_id = $(this).data('id');
       $("#form-delete").attr('action', '/admin/food-menu/' + food_menu_id);
     });
+  })
+</script>
+
+{{-- detail model configurarion --}}
+<script>
+  $(function(){
+    $('.detail-food-menu').on("click", function(event) {
+
+      var food_menu_id = $(this).data('id');
+
+      $.ajax({
+          url: '/admin/food-menu/' + food_menu_id + '/all-type',
+          menu: 'GET',
+          datamenu: 'json',
+          error: function(req, err){ console.log('error : ' + err) }
+      })
+      .done(function(response) {
+         
+          $("#modalDetailTitle").text(response['name']);
+
+          $('#modalDetailTable').empty();
+
+          //jika data lebih dari 0
+          if(response['all_type'].length > 0){
+            var isiTable = '';
+            $.each(response['all_type'], function (i, item) {
+              // isiTable += '<tr><td>' + item.rank + '</td><td>' + item.content + '</td><td>' + item.UID + '</td></tr>';
+              isiTable += '<tr><td>' + item.id +  '</td></tr>';
+            });
+            $('#modalDetailTable').append(isiTable);
+          }
+
+          $("#modal-default-4").modal('show');
+      });
+    });
+  })
+</script>
+
+{{-- auto change price to rupiah --}}
+<script>
+  $(function () {
+
+    function formatRupiah(angka, prefix){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			rupiah     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+ 
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+ 
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+		}
+
+    $("#menuPrice").keyup(function(){
+      var hasil = formatRupiah($(this).val(), "Rp.");
+      $(this).val(hasil)
+    })
   })
 </script>
 

@@ -23,7 +23,7 @@ class FoodTypeSeeder extends Seeder
             [
                 'id' => 1,
                 'type' => '3 Layer',
-                'visible' => true,
+                'visible' => false,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
@@ -31,7 +31,7 @@ class FoodTypeSeeder extends Seeder
             [
                 'id' => 2,
                 'type' => '2 Layer',
-                'visible' => true,
+                'visible' => false,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow

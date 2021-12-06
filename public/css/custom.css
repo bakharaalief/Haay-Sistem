@@ -1,0 +1,372 @@
+:root {
+    --kuning: #FFD953;
+    --kuning-muda:rgba(255, 217, 83, 0.6);
+  }
+
+/* navbar */
+
+.mr-auto .nav-item{
+    padding-inline: 5px;
+}
+
+.ml-auto .nav-item .nav-link{
+    font-size: 18px;
+}
+
+.ml-auto .nav-item {
+    padding-inline: 5px;
+}
+
+.ml-auto .nav-item .nav-link{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* home */
+
+.jumbotron {
+    position: relative;
+    background: url("https://wallpapershome.com/images/pages/pic_h/14961.jpg");
+    background-size: cover;
+}
+
+.jumbotron > .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.jumbotron > .inner {
+    position: relative;
+    z-index: 2;
+}
+
+.jumbotron .inner{
+    text-align: center;
+    padding-block: 100px;
+    color: white;
+}
+
+.jumbotron .inner .display-4{
+    font-weight: bold;
+}
+
+.menu-category{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-block: 10px;
+    margin-top: 20px;
+}
+
+.menu-category .menu-category-item{
+    width: 300px;
+    background-color: var(--kuning);
+    border-radius: 10px;
+    text-decoration: none;
+    margin: 20px;
+}
+
+.menu-category .menu-category-item .menu-category-item-cover{
+    border-radius: 10px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.menu-category .menu-category-item .menu-category-item-title{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px;
+    color: black;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.about-me{
+    display: flex;
+    padding: 30px;
+    justify-content: space-between;
+}
+
+.about-me .about-me-text{
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.about-me .about-me-image{
+    width: 500px;
+    object-fit: cover;
+}
+
+/* footer */
+.footer-2{
+    background-color: var(--kuning);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    margin-top: 50px;
+}
+
+.footer .logo-e-commerce{
+    display: flex;
+    flex-direction: column;
+}
+
+.footer .logo-e-commerce h4{
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.footer .logo-e-commerce .logo{
+    width: 130px;
+    margin-top: 10px;
+}
+
+.footer .alamat h4{
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.footer .alamat p{
+    width: 320px;
+}
+
+.footer .kontak-kami h4{
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.footer .kontak-kami .kontak-item {
+    display: flex;
+    align-self: center;
+    margin-top: 5px;
+}
+
+.footer .kontak-kami .kontak-item .kontak-logo{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* menu-detail-css */
+.menu-detail .row{
+    /* background-color: aqua; */
+    padding: 20px;
+}
+
+.menu-detail .row .side-1{
+    font-weight: bold;
+    height: fit-content;
+    border: 5px solid var(--kuning);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.menu-detail .row .side-1 h4{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.menu-detail .row .side-1 .menu-detail-category{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.menu-detail .row .side-2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.menu-detail .row .side-2 a{
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.menu-detail .row .side-2 a .menu-detail-item{
+    width: 250px;
+    background-color: var(--kuning);
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-cover{
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-desc{
+    padding: 10px;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-desc .menu-detail-item-name{
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-desc .menu-detail-item-category{
+    font-size: 20px;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-desc .menu-detail-item-size{
+    font-size: 20px;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-desc .menu-detail-item-type{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-desc .menu-detail-item-type .type{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-block: 5px;
+}
+
+.menu-detail .row .side-2 .menu-detail-item .menu-detail-item-desc .menu-detail-item-type .type p{
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+
+/* menu-detail-2 */
+.menu-detail-2 .row .side-1{
+}
+
+.menu-detail-2 .row .side-1 .menu-detail-2-cover{
+    width: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.menu-detail-2 .row .side-1 .menu-detail-2-title{
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+}
+
+.menu-detail-2 .row .side-2 .menu-detail-2-desc{
+    font-size: 16px;
+    height: 200px;
+}
+
+.menu-detail-2 .row .side-2 .menu-detail-2-type{
+    display: flex;
+}
+
+.menu-detail-2 .row .side-2 .menu-detail-2-type .type{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-block: 5px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.menu-detail-2 .row .side-2 .menu-detail-2-type .active{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-block: 5px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    background-color: var(--kuning-muda);
+}
+
+.menu-detail-2 .row .side-2 .menu-detail-2-type .type-none{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-block: 5px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.menu-detail-2 .row .side-2 .menu-amount{
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    margin-top: 15px;
+}
+
+.menu-detail-2 .row .side-2 .menu-amount .plus-amount-button{
+    background-color: var(--kuning);
+    align-self: center;
+    padding-inline: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.menu-detail-2 .row .side-2 .menu-amount .plus-amount-button p{
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.menu-detail-2 .row .side-2 .menu-amount .menu-amount-detail{
+    font-size: 40px;
+    align-self: center;
+    margin-bottom: 0px;
+}
+
+.menu-detail-2 .row .side-2 .menu-amount .minus-amount-button{
+    background-color: var(--kuning);
+    align-self: center;
+    padding-inline: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.menu-detail-2 .row .side-2 .menu-amount .minus-amount-button p{
+    margin-bottom: 0px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.menu-detail-2 .row .side-2 .menu-detail-2-price{
+    font-weight: bold;
+    font-size: 40px;
+    margin-top: 15px;
+}
+
+.menu-detail-2 .row .side-2 .add-keranjang{
+    width: fit-content;
+    padding: 10px;
+    background-color: var(--kuning);
+    border-radius: 10px;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.menu-detail-2 .row .side-2 .add-keranjang p{
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+
+/* desktop size */
+@media (max-width: 992px) {
+}

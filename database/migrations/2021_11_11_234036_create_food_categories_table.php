@@ -16,7 +16,7 @@ class CreateFoodCategoriesTable extends Migration
         Schema::create('food_categories', function (Blueprint $table) {
             $table->id();
             $table->text('category');
-            $table->boolean('visible')->default(true);
+            $table->boolean('visible')->default(false);
             $table->boolean('delete')->default(false);
             $table->timestamps();
         });

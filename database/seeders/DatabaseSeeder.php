@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             LevelSeeder::class,
-            GenderSeeder::class,
             UserSeeder::class,
+            FoodSizeSeeder::class,
             FoodCategorySeeder::class,
+            FoodTypeSeeder::class,
         ]);
     }
 }

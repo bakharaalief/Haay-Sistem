@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'level' => 1,
+            'gender' => 'L',
             'password' => bcrypt('12345678')
         ]);
 
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             'name' => 'customer',
             'email' => 'customer@gmail.com',
             'level' => 2,
+            'gender' => 'P',
             'password' => bcrypt('12345678')
         ]);
     }

@@ -32,7 +32,7 @@ class CreateFoodMenusTable extends Migration
 
             $table->text('link_image');
 
-            $table->boolean('visible')->default(true);
+            $table->boolean('visible')->default(false);
             $table->boolean('delete')->default(false);
             $table->timestamps();
         });

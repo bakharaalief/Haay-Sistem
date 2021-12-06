@@ -23,7 +23,7 @@ class FoodSizeSeeder extends Seeder
             [
                 'id' => 1,
                 'size' => 'Small',
-                'visible' => true,
+                'visible' => false,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
@@ -31,7 +31,7 @@ class FoodSizeSeeder extends Seeder
             [
                 'id' => 2,
                 'size' => 'Medium',
-                'visible' => true,
+                'visible' => false,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
@@ -39,7 +39,7 @@ class FoodSizeSeeder extends Seeder
             [
                 'id' => 3,
                 'size' => 'Large',
-                'visible' => true,
+                'visible' => false,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow

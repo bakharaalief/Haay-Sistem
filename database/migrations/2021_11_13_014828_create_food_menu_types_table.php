@@ -30,7 +30,7 @@ class CreateFoodMenuTypesTable extends Migration
 
             $table->bigInteger('price');
 
-            $table->boolean('visible')->default(true);
+            $table->boolean('visible')->default(false);
             $table->boolean('delete')->default(false);
             $table->timestamps();
         });
