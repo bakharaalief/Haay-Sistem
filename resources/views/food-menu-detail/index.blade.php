@@ -1,5 +1,10 @@
 @extends('layouts.normal.app')
 
+@section('css')
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css ') }}">
+@endSection
+
 @section('content')
 <div class="menu-detail-2 container pt-4">
     <div class="row">
@@ -20,7 +25,7 @@
                 @foreach ($foodMenu->getFoodType as $foodType)
                 <div 
                     class="type"
-                    data-menuType="{{ $foodType->id }}"
+                    data-type="{{ $foodType->id }}"
                     data-harga="{{ $foodType->pivot->price }}">
                     {{ $foodType->type }}
                 </div>          
@@ -44,15 +49,72 @@
 
             <h4 class="menu-detail-2-price">Rp. 0</h4>
 
-            <div class="add-keranjang">
+            
+            <div 
+                class="add-keranjang"
+                @guest data-login="0" @else data-login="1" @endguest>
                 <p>Masukkan Keranjang</p>
             </div>
         </div>
     </div>
+
+    {{-- tambah modal --}}
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Masukkan Ke Keranjang</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <form method="POST" action="{{ route('cart.store') }}">
+              @csrf
+
+              <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="menuNotes">Catatan</label>
+                    <textarea class="form-control" id="menuNotes" rows="3" name="menu_notes" placeholder="Masukkan Notes" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="menuPhoto">Foto Referensi ( JIka Ada )</label>
+                    <input type="file" class="form-control-file" id="menuPhoto" name="menu_photo">
+                </div>
+
+                <input type="number" class="form-control" id="menuType" name="menu_type" hidden required>
+
+                <input type="number" class="form-control" id="menuAmount" name="menu_amount" hidden required>
+
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+    </div>
 </div>
+
+
+
 @endsection
 
 @section('js')
+<!-- Toastr -->
+<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+
+{{-- berhasil tambah foodtype--}}
+@if ($message = Session::get('success_store'))
+  <script>
+    toastr.success('{{ $message }}');
+  </script>
+@endif
+
 <script>
     $(function(){
         function formatRupiah(angka, prefix){
@@ -107,7 +169,7 @@
             $(this).addClass('active');
 
             const harga = $(this).data('harga');
-            const id = $(this).data('menuType');
+            const id = $(this).data('type');
 
             idMenuType = id
             hargaBarang = harga
@@ -117,6 +179,24 @@
             var hasil = formatRupiah((hargaBarang*jumlahBarang).toString(), 'Rp. ')
             $('.menu-detail-2-price').text(hasil)
         })
+
+        //keranjang add
+        $('.add-keranjang').click(function(){
+            if(idMenuType == 0){
+                toastr.error('Kamu Belum Memilih Barang');
+            }
+            else{
+                const statusLogin = $(this).data('login');
+                if(statusLogin == 0) {
+                    window.location.href = "{{ route('login') }}";
+                }
+                else {
+                    $("#modal-default").modal('show');
+                    $("#menuAmount").val(hargaBarang);
+                    $("#menuType").val(idMenuType);
+                }
+            }
+        })
     })
 </script>
-@endsection
+@endSection

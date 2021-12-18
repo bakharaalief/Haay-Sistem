@@ -30,7 +30,7 @@ class LoginController extends Controller
         if (Auth::user()->level == 1) {
             return 'admin';  // admin dashboard path
         } else {
-            return 'home';  // member dashboard path
+            return '/';  // member dashboard path
         }
     }
 

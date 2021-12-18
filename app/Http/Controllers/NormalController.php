@@ -48,9 +48,5 @@ class NormalController extends Controller
             ->findOrFail($id);
 
         return view('food-menu-detail.index')->with(compact('foodMenu'));
-
-        // return response()->json([
-        //     $foodMenu->getFoodType
-        // ]);
     }
 }

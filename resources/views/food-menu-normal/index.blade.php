@@ -1,5 +1,10 @@
 @extends('layouts.normal.app')
 
+@section('css')
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css ') }}">
+@endSection
+
 @section('content')
 <h1 class="text-center text-font font-weight-bold pt-4">Daftar Menu</h1>
 
@@ -64,3 +69,16 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<!-- Toastr -->
+<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+
+{{-- berhasil tambah foodtype--}}
+@if ($message = Session::get('success_store'))
+  <script>
+    toastr.success('{{ $message }}');
+  </script>
+@endif
+
+@endSection

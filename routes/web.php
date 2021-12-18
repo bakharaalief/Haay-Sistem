@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\FoodMenuController;
 use App\Http\Controllers\FoodMenuTypeController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\NormalController;
 use App\Http\Controllers\UserController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,16 +31,6 @@ Route::prefix('/')->group(function () {
     Route::get('/menu', [NormalController::class, 'menuIndex'])->name('normal.menu');
     Route::get('/menu/{id}', [NormalController::class, 'menuDetail'])->name('normal.menuDetail');
 });
-
-// Route::get('/', function () {
-//     return view('home');
-// });
-
-// Route::get('/', function () {
-//     return view('home');
-// });
-
-
 
 Auth::routes();
 
@@ -74,9 +66,5 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::resource('/food-menu-type', FoodMenuTypeController::class);
 });
 
-
-
 //customer route
-Route::prefix('/home')->middleware(['auth'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-});
+Route::resource('/cart', CartController::class)->middleware(['auth']);

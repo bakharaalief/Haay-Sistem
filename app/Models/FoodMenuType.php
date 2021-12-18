@@ -17,13 +17,18 @@ class FoodMenuType extends Model
 
     use HasFactory;
 
-    // public function getFoodMenu()
-    // {
-    //     return $this->belongsToMany(FoodMenu::class);
-    // }
+    public function getCart()
+    {
+        return $this->hasMany(Cart::class, 'food_menu_type', 'id');
+    }
 
-    // public function getFoodType()
-    // {
-    //     return $this->belongsToMany(FoodType::class);
-    // }
+    public function getFoodMenu()
+    {
+        return FoodMenu::where('id', $this->food_menu)->first();
+    }
+
+    public function getFoodType()
+    {
+        return FoodType::where('id', $this->food_type)->first();
+    }
 }

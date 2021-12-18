@@ -366,6 +366,81 @@
     cursor: pointer;
 }
 
+.keranjang {
+    margin-top: 30px;
+}
+
+.keranjang-item{
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.keranjang .keranjang-item .keranjang-image{
+    width: 300px;
+    margin-right: 40px;
+    object-fit: cover;
+}
+
+.keranjang .keranjang-item .keranjang-image{
+    width: 300px;
+    margin-right: 40px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.keranjang .keranjang-item .keranjang-detail .nama-menu{
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-bottom: 10px;
+}
+
+.keranjang .keranjang-item .keranjang-detail .ukuran-menu{
+    margin-bottom: 0px;
+}
+
+.keranjang .keranjang-item .keranjang-detail .catatan-menu{
+    margin-bottom: 0px;
+}
+
+.keranjang .keranjang-item .keranjang-detail .type-menu{
+    margin-bottom: 0px;
+}
+
+.keranjang .keranjang-item .keranjang-detail .total-menu{
+    font-weight: bold;
+    font-size: 30px;
+    color: green;
+}
+
+.keranjang .keranjang-item .keranjang-detail .delete-button p{
+    margin-bottom: 0px;
+    font-weight: bold;
+    color: white;
+}
+
+.keranjang .keranjang-informasi{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.keranjang .keranjang-informasi .total-harga{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.keranjang .keranjang-informasi .beli-button{
+    background-color: var(--kuning);
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding-inline: 40px;
+}
+
+.keranjang .keranjang-informasi .beli-button p{
+    margin-bottom: 0px;
+    font-weight: bold;
+}
 
 /* desktop size */
 @media (max-width: 992px) {

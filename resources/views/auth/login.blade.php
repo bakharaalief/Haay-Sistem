@@ -1,9 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.normal.app')
+
+@section('css')
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css ') }}">
+@endSection
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row justify-content-center py-1">
+        <div class="col-md-8 py-5">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
@@ -71,3 +76,15 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<!-- Toastr -->
+<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+
+{{-- sebelum masukkan keranjang harus login --}}
+@if ($message = Session::get('failed_login'))
+  <script>
+    toastr.error('{{ $message }}');
+  </script>
+@endif
+@endSection

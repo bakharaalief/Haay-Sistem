@@ -22,15 +22,14 @@ class CreateOrderDetailsTable extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreignId('food_menu_type')
+            $table->foreignId('cart')
                 ->references('id')
-                ->on('food_menu_types')
+                ->on('carts')
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->bigInteger('food_menu_type_price_now');
+            $table->bigInteger('price_now');
 
-            $table->integer('amount');
             $table->boolean('delete')->default(false);
             $table->timestamps();
         });
