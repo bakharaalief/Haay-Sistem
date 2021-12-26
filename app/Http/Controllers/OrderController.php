@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\OrderDelivery;
-use App\Models\OrderProcessTime;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CartController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,26 +17,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        //cart data
-        $cartData = Cart::where('user', Auth::user()->id)
-            ->where('delete', false)
-            ->get();
-
-        //orderProcessTime
-        $orderProcessTimeData = OrderProcessTime::all();
-
-        //nomor telpon user
-        $phoneData = Auth::user()->getPhone;
-
-        //alamat user
-        $addressData = Auth::user()->getAddress;
-
-        //jenis delivery
-        $deliveryData = OrderDelivery::all();
-
-        return view('cart.index')->with(
-            compact('cartData', 'orderProcessTimeData', 'phoneData', 'addressData', 'deliveryData')
-        );
+        $dataOrder = Auth::user()->getOrder;
+        return view('order-normal.index')->with(compact('dataOrder'));
     }
 
     /**
@@ -46,7 +28,6 @@ class CartController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -59,16 +40,35 @@ class CartController extends Controller
     {
         $id = Auth::user()->id;
 
-        Cart::create([
+        $newOrder = Order::create([
             'user' => $id,
-            'food_menu_type' => $request['menu_type'],
-            'amount' => $request['menu_amount'],
-            'photo_refrensi' => null,
-            'notes' => $request['menu_notes']
+            'phone' => $request['order_phone'],
+            'address' => $request['order_address'],
+            'order_process_time' => $request['order_process_time'],
+            'order_process_price_now' => $request['harga_pengerjaan'],
+            'order_delivery' => $request['order_delivey'],
+            'order_delivery_price_now' => $request['harga_pengiriman'],
+            'order_status' => 1,
         ]);
 
-        return Redirect(route('normal.menu'))
-            ->with(['success_store' => 'Menu Dimasukkan Ke Keranjang']);
+        $cartData = Auth::user()->getCart->where('delete', false);
+
+        foreach ($cartData as $data) {
+            //insert cart item to order detail
+            OrderDetail::create([
+                'order' => $newOrder->id,
+                'cart' => $data->id,
+                'price_now' => $data->getFoodMenuType->price
+            ]);
+
+            //update carti item to delete true
+            Cart::where('id', $data->id)->update([
+                'delete' => true
+            ]);
+        }
+
+        return redirect(route('normal.menu'))
+            ->with(['success_store' => 'Berhasil Membuat Order']);
     }
 
     /**
@@ -113,11 +113,6 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //update data to delete false
-        Cart::where('delete', false)->where('id', $id)->update([
-            'delete' => true
-        ]);
-
-        return redirect(route('cart.index'));
+        //
     }
 }

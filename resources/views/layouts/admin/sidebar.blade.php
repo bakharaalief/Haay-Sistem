@@ -91,6 +91,27 @@
           </ul>
         </li>
 
+
+        {{-- daftar menu Button --}}
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-shopping-cart"></i>
+            <p>Pesanan</p>
+            <i class="right fa fa-angle-left"></i>
+          </a>
+          <ul class="nav nav-treeview">
+
+            {{-- list daftar menu --}}
+            <li class="nav-item">
+              <a href="{{ route('admin.order.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>List</p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
         {{-- logout button --}}
         <li class="nav-item">
           <a 

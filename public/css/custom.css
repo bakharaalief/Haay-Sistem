@@ -442,6 +442,70 @@
     font-weight: bold;
 }
 
+.keranjang .text-title{
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.keranjang .text-harga{
+    margin-bottom: 10px;
+}
+
+.order .order-item{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--kuning);
+    padding: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.order .order-item .order-info{
+    height: fit-content;
+}
+
+.order .order-item .order-info .id-order{
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.order .order-item .order-info .tanggal-order{
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.order .order-item .order-info .alamat-order{
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.order .order-item .order-info .phone-order{
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.order .order-item .order-info .delivery-order{
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.order .order-item .order-info .status-order{
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.order .order-item .order-action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order .order-item .order-action .btn {
+    margin-inline: 5px;
+}
+
 /* desktop size */
 @media (max-width: 992px) {
 }

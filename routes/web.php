@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\FoodMenuController;
 use App\Http\Controllers\FoodMenuTypeController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\FoodTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\NormalController;
+use App\Http\Controllers\OrderAdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
@@ -64,7 +67,12 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
 
     //food menu type
     Route::resource('/food-menu-type', FoodMenuTypeController::class);
+
+    //order
+    Route::get('/order/{id}/order-detail', [OrderAdminController::class, 'orderDetail'], ['as' => 'admin']);
+    Route::resource('/order', OrderAdminController::class, ['as' => 'admin']);
 });
 
 //customer route
 Route::resource('/cart', CartController::class)->middleware(['auth']);
+Route::resource('/order', OrderController::class)->middleware(['auth']);

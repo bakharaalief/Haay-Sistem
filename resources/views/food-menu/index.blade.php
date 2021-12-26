@@ -515,8 +515,11 @@
           if(response['all_type'].length > 0){
             var isiTable = '';
             $.each(response['all_type'], function (i, item) {
-              // isiTable += '<tr><td>' + item.rank + '</td><td>' + item.content + '</td><td>' + item.UID + '</td></tr>';
-              isiTable += '<tr><td>' + item.id +  '</td></tr>';
+              isiTable += 
+                '<tr><td>' + 
+                  item.type + '</td><td>' + 
+                  item.pivot.price + '</td><td>' + 
+                '</td></tr>';
             });
             $('#modalDetailTable').append(isiTable);
           }

@@ -54,4 +54,28 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Level::class, 'level', 'id');
     }
+
+    //get phone
+    public function getPhone()
+    {
+        return $this->hasMany(Phone::class, 'user', 'id');
+    }
+
+    //get level
+    public function getAddress()
+    {
+        return $this->hasMany(Address::class, 'user', 'id');
+    }
+
+    //get Cart
+    public function getCart()
+    {
+        return $this->hasMany(Cart::class, 'user', 'id');
+    }
+
+    //get Order
+    public function getOrder()
+    {
+        return $this->hasMany(Order::class, 'user', 'id');
+    }
 }

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             FoodSizeSeeder::class,
             FoodCategorySeeder::class,
             FoodTypeSeeder::class,
+            OrderStatusSeeder::class
         ]);
     }
 }

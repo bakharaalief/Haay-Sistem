@@ -21,4 +21,14 @@ class Cart extends Model
     {
         return $this->belongsTo(FoodMenuType::class, 'food_menu_type', 'id');
     }
+
+    public function getUser()
+    {
+        return $this->belongsTo(User::class, 'user', 'id');
+    }
+
+    public function getOrderDetail()
+    {
+        return $this->hasMany(OrderDetail::class, 'cart', 'id');
+    }
 }

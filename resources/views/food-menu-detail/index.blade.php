@@ -25,7 +25,7 @@
                 @foreach ($foodMenu->getFoodType as $foodType)
                 <div 
                     class="type"
-                    data-type="{{ $foodType->id }}"
+                    data-type="{{ $foodType->pivot->id }}"
                     data-harga="{{ $foodType->pivot->price }}">
                     {{ $foodType->type }}
                 </div>          
@@ -84,15 +84,15 @@
                     <input type="file" class="form-control-file" id="menuPhoto" name="menu_photo">
                 </div>
 
-                <input type="number" class="form-control" id="menuType" name="menu_type" hidden required>
+                <input type="number" class="form-control" id="menuType" name="menu_type" required hidden>
 
-                <input type="number" class="form-control" id="menuAmount" name="menu_amount" hidden required>
+                <input type="number" class="form-control" id="menuAmount" name="menu_amount" required hidden>
 
-              </div>
-              <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Tambah</button>
-              </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                </div>
 
             </form>
           </div>
@@ -192,8 +192,8 @@
                 }
                 else {
                     $("#modal-default").modal('show');
-                    $("#menuAmount").val(hargaBarang);
                     $("#menuType").val(idMenuType);
+                    $("#menuAmount").val(jumlahBarang);
                 }
             }
         })
