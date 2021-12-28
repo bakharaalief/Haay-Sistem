@@ -27,11 +27,10 @@
             <thead>
               <tr>
                 <th>Nama</th>
-                <th>Gender</th>
                 <th>Email</th>
+                <th>Gender</th>
                 <th>Level</th>
                 <th>Dibuat</th>
-                <th>Diupdate</th>
               </tr>
             </thead>
             <tbody>
@@ -39,9 +38,9 @@
               <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
+                <td>{{ $user->gender }}</td>
                 <td>{{ $user->getLevel->level }}</td>
                 <td>{{ $user->created_at }}</td>
-                <td>{{ $user->updated_at }}</td>
               </tr>
               @endforeach
             </tbody>

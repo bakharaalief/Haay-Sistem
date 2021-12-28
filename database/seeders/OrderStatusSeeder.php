@@ -38,7 +38,7 @@ class OrderStatusSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'status' => 'Sedang Proses Pembuatan',
+                'status' => 'Proses Pembuatan',
                 'visible' => true,
                 'delete' => false,
                 'created_at' => $dateNow,
@@ -54,7 +54,7 @@ class OrderStatusSeeder extends Seeder
             ],
             [
                 'id' => 5,
-                'status' => 'Selesai Pembuatan',
+                'status' => 'Pemesanan Berhasil',
                 'visible' => true,
                 'delete' => false,
                 'created_at' => $dateNow,
@@ -62,7 +62,7 @@ class OrderStatusSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'status' => 'Order Dibatalkan',
+                'status' => 'Pemesanan Dibatalkan',
                 'visible' => true,
                 'delete' => false,
                 'created_at' => $dateNow,
