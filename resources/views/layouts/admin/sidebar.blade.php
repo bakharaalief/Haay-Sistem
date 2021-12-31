@@ -105,10 +105,50 @@
             <li class="nav-item">
               <a href="{{ route('admin.order.index') }}" class="nav-link">
                 <i class="nav-icon fa fa-circle-o"></i>
-                <p>List</p>
+                <p>List Semua</p>
               </a>
             </li>
 
+            {{-- list berhasil --}}
+            <li class="nav-item">
+              <a href="{{ route('admin.order.index-berhasil') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>List Berhasil</p>
+              </a>
+            </li>
+
+            {{-- list batalkan --}}
+            <li class="nav-item">
+              <a href="{{ route('admin.order.index-batalkan') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>List Batalkan</p>
+              </a>
+            </li>
+
+            {{--Lama Process --}}
+            <li class="nav-item">
+              <a href="{{ route('order-process-time.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Lama Proses</p>
+              </a>
+            </li>
+
+            {{-- Order Kurir --}}
+            <li class="nav-item">
+              <a href="{{ route('order-delivery.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Kurir</p>
+              </a>
+            </li>
+
+            {{-- Order Kurir --}}
+            <li class="nav-item">
+              <a href="{{ route('order-status.index') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>Status Pemesanan</p>
+              </a>
+            </li>
+            
           </ul>
         </li>
 

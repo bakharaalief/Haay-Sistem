@@ -12,8 +12,14 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\NormalController;
 use App\Http\Controllers\OrderAdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDeliveryController;
+use App\Http\Controllers\OrderProcessTime;
+use App\Http\Controllers\OrderProcessTimeController;
+use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\UserController;
 use App\Models\Cart;
+use App\Models\OrderDelivery;
+use App\Models\OrderStatus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,8 +75,27 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
     Route::resource('/food-menu-type', FoodMenuTypeController::class);
 
     //order
+    Route::get('/order/order-berhasil', [OrderAdminController::class, 'indexBerhasil'])
+        ->name('admin.order.index-berhasil');
+    Route::get('/order/order-batal', [OrderAdminController::class, 'indexBatalkan'])
+        ->name('admin.order.index-batalkan');
     Route::get('/order/{id}/order-detail', [OrderAdminController::class, 'orderDetail'], ['as' => 'admin']);
     Route::resource('/order', OrderAdminController::class, ['as' => 'admin']);
+
+    //order-process-time
+    Route::put('/order-process-time/{id}/change-visible', [OrderProcessTimeController::class, 'updateVisible'])
+        ->name('order-process-time.changeVisible');
+    Route::resource('/order-process-time', OrderProcessTimeController::class);
+
+    //order delivery
+    Route::put('/order-delivery/{id}/change-visible', [OrderDeliveryController::class, 'updateVisible'])
+        ->name('order-delivery.changeVisible');
+    Route::resource('/order-delivery', OrderDeliveryController::class);
+
+    //order status
+    Route::put('/order-status/{id}/change-visible', [OrderStatusController::class, 'updateVisible'])
+        ->name('order-status.changeVisible');
+    Route::resource('/order-status', OrderStatusController::class);
 });
 
 //customer route

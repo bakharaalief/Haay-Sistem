@@ -17,7 +17,7 @@
 @endsection
 
 @section('page-name')
-<h1>Pesanan</h1>
+<h1>Pemesanan Batal</h1>
 @endsection
 
 @section('content')

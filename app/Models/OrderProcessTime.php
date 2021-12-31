@@ -9,6 +9,14 @@ class OrderProcessTime extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'order_process_time',
+        'price',
+        'visible',
+        'delete'
+    ];
+
+
     public function getProcessOrder()
     {
         return $this->hasMany(Order::class, 'order_process_time', 'id');

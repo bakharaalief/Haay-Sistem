@@ -9,6 +9,12 @@ class OrderDelivery extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'delivery',
+        'visible',
+        'delete'
+    ];
+
     public function getOrder()
     {
         return $this->hasMany(Order::class, 'order_delivery', 'id');

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\FoodMenuType;
-use App\Models\FoodType;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -46,39 +45,31 @@ class FoodMenuTypeController extends Controller
      */
     public function store(Request $request)
     {
-        // try {
-        //     //check data if exist in db
-        //     $cekAda = FoodMenuType::where('delete', false)->where('name', $request['menu_name'])->first();
-        //     $extension = $request['menu_photo']->extension();
+        try {
+            //check data if exist in db
+            $cekAda = FoodMenuType::where('delete', false)
+                ->where('food_type', $request['menu_type'])->first();
 
-        //     //if exist
-        //     if (isset($cekAda)) {
-        //         return redirect(route('food-menu.index'))->with(['failed_store' => 'Menu Gagal Ditambah karena sudah terdaftar']);
-        //     }
+            //if exist
+            if (isset($cekAda)) {
+                return redirect(route('food-menu.index'))->with(['failed_store' => 'Tipe Menu Gagal Ditambah karena sudah terdaftar']);
+            }
 
-        //     //photo file
-        //     else if ($extension != 'png' &&  $extension != 'jpeg' && $extension != 'jpg') {
-        //         return redirect(route('food-menu.index'))->with(['failed_store' => 'Menu Gagal Ditambah Karena File Photo Tidak Sesuai']);
-        //     }
+            //else
+            else {
+                $harga_str = preg_replace("/[^0-9]/", "", $request['menu_price']);
+                $harga_int = (int) $harga_str;
 
-        //     //else
-        //     else {
-        //         $imageName = time() . '.' . $extension;
-        //         $request['menu_photo']->move(public_path('images/foto_menu/'), $imageName);
-
-        //         FoodMenuType::create([
-        //             'name' => $request['menu_name'],
-        //             'description' => $request['menu_description'],
-        //             'food_category' => $request['menu_category'],
-        //             'food_size' => $request['menu_size'],
-        //             'link_image' => $imageName
-        //         ]);
-
-        //         return redirect(route('food-menu.index'))->with(['success_store' => 'Menu Berhasil Ditambah']);
-        //     }
-        // } catch (Exception $e) {
-        //     return redirect(route('food-menu.index'))->with(['failed_store' => 'Menu Gagal Ditambah']);
-        // }
+                FoodMenuType::create([
+                    'food_type' => $request['menu_type'],
+                    'price' => $harga_int,
+                    'food_menu' => $request['menu_id']
+                ]);
+                return redirect(route('food-menu.index'))->with(['success_store' => 'Tipe Menu Berhasil Ditambah']);
+            }
+        } catch (Exception $e) {
+            return redirect(route('food-menu.index'))->with(['failed_store' => 'Tipe Menu Gagal Ditambah']);
+        }
     }
 
     /**
@@ -89,7 +80,15 @@ class FoodMenuTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        // get data from table Food type where delete == false and id same with paramete
+        $foodMenuType = FoodMenuType::where('delete', false)->findOrFail($id);
+
+        //return in json format
+        return response()->json([
+            'food_menu' => $foodMenuType->food_menu,
+            'food_type' => $foodMenuType->food_type,
+            'price' => $foodMenuType->price,
+        ]);
     }
 
     /**
@@ -112,7 +111,35 @@ class FoodMenuTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            //check data if exist in db
+            $cekAda = FoodMenuType::where('delete', false)
+                ->where('food_menu', $request['menu_id'])
+                ->where('food_type', $request['menu_type'])->first();
+
+            //if exist
+            if (
+                isset($cekAda) &&
+                $cekAda->food_type == $request['menu_type'] &&
+                $cekAda->price == $request['menu_price']
+            ) {
+                return redirect(route('food-menu.index'))->with(['failed_store' => 'Tipe Menu Gagal Diupdate karena sudah terdaftar']);
+            }
+
+            //else
+            else {
+                // update from table Food menu type where delete == false and id same with parameter
+                FoodMenuType::where('delete', false)->where('id', $id)->update([
+                    'food_type' => $request['menu_type'],
+                    'price' => $request['menu_price']
+                ]);
+
+                //redirect to index Food orderProcessTime
+                return redirect(route('food-menu.index'))->with(['success_update' => 'Tipe Menu Berhasil Diupdate']);
+            }
+        } catch (Exception $e) {
+            return redirect(route('food-menu.index'))->with(['failed_update' => 'Tipe Menu Gagal Diupdate']);
+        }
     }
 
     /**
@@ -123,6 +150,17 @@ class FoodMenuTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            //update data to delete false
+            FoodMenuType::where('delete', false)->where('id', $id)->update([
+                'visible' => false,
+                'delete' => true
+            ]);
+
+            //redirect to index
+            return redirect(route('food-menu.index'))->with(['success_delete' => 'Tipe Menu pemesanan Berhasil Dihapus']);
+        } catch (Exception $e) {
+            return redirect(route('food-menu.index'))->with(['failed_delete' => 'Tipe Menu pemesanan Gagal Dihapus']);
+        }
     }
 }

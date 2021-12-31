@@ -33,6 +33,7 @@ class FoodMenu extends Model
     {
         return $this
             ->belongsToMany(FoodType::class, 'food_menu_types', 'food_menu', 'food_type')
-            ->withPivot(['id', 'price']);
+            ->withPivot(['id', 'price', 'delete'])
+            ->wherePivot('delete', '=', 'false');
     }
 }

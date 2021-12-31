@@ -207,7 +207,18 @@ class FoodMenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            //update data to delete false
+            FoodMenu::where('delete', false)->where('id', $id)->update([
+                'visible' => false,
+                'delete' => true
+            ]);
+
+            //redirect to index
+            return redirect(route('food-menu.index'))->with(['success_delete' => 'Menu pemesanan Berhasil Dihapus']);
+        } catch (Exception $e) {
+            return redirect(route('food-menu.index'))->with(['failed_delete' => 'Menu pemesanan Gagal Dihapus']);
+        }
     }
 
     public function updateVisible(Request $request)
@@ -242,6 +253,9 @@ class FoodMenuController extends Controller
     {
         // get data from table Food menu where delete == false and id same with paramete
         $foodMenu = FoodMenu::where('delete', false)->findOrFail($id);
+
+        //array for sub data
+        $array = array();
 
         // return in json format
         return response()->json([

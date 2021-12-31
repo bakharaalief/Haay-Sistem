@@ -22,6 +22,23 @@ class OrderAdminController extends Controller
         return view('order.index')->with(compact('dataOrder', 'dataStatus'));
     }
 
+
+    public function indexBerhasil()
+    {
+        $dataOrder = Order::where('order_status', 5)->get();
+        $dataStatus = OrderStatus::all();
+
+        return view('order.index-berhasil')->with(compact('dataOrder', 'dataStatus'));
+    }
+
+    public function indexBatalkan()
+    {
+        $dataOrder = Order::where('order_status', 6)->get();
+        $dataStatus = OrderStatus::all();
+
+        return view('order.index-batalkan')->with(compact('dataOrder', 'dataStatus'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

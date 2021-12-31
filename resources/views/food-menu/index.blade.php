@@ -59,11 +59,11 @@
                 <td>{{ $foodMenu->getCategory->category }}</td>
                 <td>{{ $foodMenu->getSize->size }}</td>
                 <td>
-                  <img 
+                  {{-- <img 
                     src="{{ asset('images/foto_menu/' . $foodMenu->link_image ) }}" 
                     class="img-thumbnail"
                     width="250"
-                    height="250">
+                    height="250"> --}}
                 </td>
                 <td>
                   <input 
@@ -271,71 +271,23 @@
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>Nama</th>
-                      <th>Dekripsi</th>
-                      <th>Kategori</th>
-                      <th>Ukuran</th>
-                      <th>Photo</th>
-                      <th class="col-1">Status</th>
-                      <th>Detail</th>
+                      <th>Type</th>
+                      <th>Harga</th>
                       <th class="col-1">Edit</th>
                       <th class="col-1">Delete</th>
                     </tr>
                   </thead>
                   <tbody id="modalDetailTable">
-                    {{-- @foreach ($dataFoodMenu as $foodMenu)
-                    <tr>
-                      <td>{{ $foodMenu->name }}</td>
-                      <td>{{ $foodMenu->description }}</td>
-                      <td>{{ $foodMenu->getCategory->category }}</td>
-                      <td>{{ $foodMenu->getSize->size }}</td>
-                      <td>
-                        <img 
-                          src="{{ asset('images/foto_menu/' . $foodMenu->link_image ) }}" 
-                          class="img-thumbnail"
-                          width="250"
-                          height="250">
-                      </td>
-                      <td>
-                        <input 
-                          class="visible-toogle"
-                          type="checkbox" 
-                          data-toggle="toggle" 
-                          data-onstyle="outline-primary" 
-                          data-offstyle="outline-secondary" 
-                          data-width="100"
-                          data-on="Aktif" 
-                          data-off="Mati"
-                          data-id="{{$foodMenu->id}}"
-                          value="{{$foodMenu->name}}"
-      
-                          @if ($foodMenu->visible) checked @endif>
-                      </td>
-                      <td>
-                        <button class="btn btn-info detail-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}">
-                        Detail
-                        </button>
-                      </td>
-                      <td>
-                        <button class="btn btn-warning edit-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}">
-                        Edit
-                        </button>
-                      </td>
-                      <td>
-                        <button class="btn btn-danger delete-food-menu" data-toggle="modal" data-id="{{$foodMenu->id}}">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                    @endforeach --}}
                   </tbody>
                 </table>
               </div>
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" 
-                data-toggle="modal" 
-                data-target="#modal-default-5">Tambah Tipe Menu</button>
+                <button 
+                  type="button" 
+                  class="btn btn-success add-type-menu" 
+                  data-toggle="modal" 
+                  data-target="#modal-default-5">Tambah Tipe Menu</button>
               </div>
             </div>
           </div>
@@ -373,12 +325,88 @@
                   </div>
 
                   {{-- form menu id hidden --}}
-                  <input menu="text" class="form-control" id="menuId" placeholder="Masukkan Harga Menu" name="menu_id" required hidden>
+                  <input type="text" class="form-control" id="menuIdType" name="menu_id">
 
                 </div>
                 <div class="modal-footer justify-content-between">
                   <button menu="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   <button menu="submit" class="btn btn-primary">Tambah</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        {{-- detail modal edit --}}
+        <div class="modal fade" id="modal-default-6">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Tipe</h4>
+                <button menu="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form method="POST" id="form-edit-type" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-body">
+
+                  {{-- form type food menu --}}
+                  <div class="form-group">
+                    <label for="menuTypeEdit">Tipe Menu</label>
+                    <select class="form-control" id="menuTypeEdit" name="menu_type">
+                        @foreach ($dataFoodType as $foodType)
+                        <option value="{{ $foodType->id }}">{{ $foodType->type }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+
+                  {{-- form price food menu --}}
+                  <div class="form-group">
+                    <label for="menuPriceEdit">Harga Menu</label>
+                    <input type="text" class="form-control" id="menuPriceEdit" placeholder="Masukkan Harga Menu" name="menu_price" required>
+                  </div>
+
+                  {{-- form menu id hidden --}}
+                  <input type="text" class="form-control" id="menuIdEditType" placeholder="Masukkan Harga Menu" name="menu_id" hidden>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button menu="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button menu="submit" class="btn btn-primary">Update</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        {{-- detail modal delete --}}
+        <div class="modal fade" id="modal-default-7">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h4 class="modal-title">Delete Menu</h4>
+                <button menu="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form method="POST" id="form-delete-type">
+                @csrf
+                @method('Delete')
+
+                <div class="modal-body">
+                  <p>Anda Yakin Ingin Menghapus Type Ini ? </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button menu="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button menu="submit" class="btn btn-danger">Iya</button>
                 </div>
 
               </form>
@@ -508,7 +536,7 @@
       .done(function(response) {
          
           $("#modalDetailTitle").text(response['name']);
-
+          $('.add-type-menu').attr('data-id' , food_menu_id);
           $('#modalDetailTable').empty();
 
           //jika data lebih dari 0
@@ -519,13 +547,54 @@
                 '<tr><td>' + 
                   item.type + '</td><td>' + 
                   item.pivot.price + '</td><td>' + 
+                  '<button class="btn btn-warning edit-type-menu" data-toggle="modal" data-id="' + item.pivot.id + '">Edit</button></td><td>'+
+                  '<button class="btn btn-danger delete-type-menu" data-toggle="modal" data-id="' + item.pivot.id + '">Delete</button>'+
                 '</td></tr>';
             });
             $('#modalDetailTable').append(isiTable);
           }
 
+          //when edit type menu click
+          $('.edit-type-menu').on("click", function(event) {
+            var food_menu_type_id = $(this).data('id');
+
+            $.ajax({
+                url: '/admin/food-menu-type/' + food_menu_type_id,
+                menu: 'GET',
+                datamenu: 'json',
+                error: function(req, err){ console.log('error : ' + err) }
+            })
+            .done(function(response) {
+                $("#form-edit-type").attr('action', '/admin/food-menu-type/' + food_menu_type_id);
+                $("#menuTypeEdit").val(response['food_type']);
+                $("#menuPriceEdit").val(response['price']);
+                $("#menuIdEditType").val(response['food_menu']);
+                $("#modal-default-6").modal('show');
+            });
+          });
+
+           //when delete type menu click
+          $('.delete-type-menu').on("click", function(event) {
+
+            var food_menu_type_id = $(this).data('id');
+
+            $("#form-delete-type").attr('action', '/admin/food-menu-type/' + food_menu_type_id);
+            $("#modal-default-7").modal('show');
+          });
+
           $("#modal-default-4").modal('show');
       });
+    });
+  })
+</script>
+
+{{-- add modal configuration --}}
+<script>
+  $(function(){
+    $('.add-type-menu').on("click", function(event) {
+      var food_menu_id = $(this).data('id');
+      $("#menuIdType").val(food_menu_id);
+      $("#modal-default-5").modal('show');
     });
   })
 </script>
