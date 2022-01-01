@@ -15,11 +15,11 @@ class OrderStatusSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('order_statutes')->delete();
+        DB::table('order_statuses')->delete();
 
         $dt = Carbon::now()->setTimezone('Asia/Manila');
         $dateNow = $dt->toDateTimeString();
-        $levels = [
+        $order_status = [
             [
                 'id' => 1,
                 'status' => 'Menunggu Pembayaran',
@@ -70,6 +70,6 @@ class OrderStatusSeeder extends Seeder
             ],
         ];
 
-        DB::table('levels')->insert($levels);
+        DB::table('order_statuses')->insert($order_status);
     }
 }

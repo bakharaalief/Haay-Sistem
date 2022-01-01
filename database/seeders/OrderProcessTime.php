@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class UserSeeder extends Seeder
+class OrderProcessTime extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,35 +15,31 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->delete();
+        DB::table('order_process_times')->delete();
 
         $dt = Carbon::now()->setTimezone('Asia/Manila');
         $dateNow = $dt->toDateTimeString();
-        $user = [
+        $process_time = [
             [
                 'id' => 1,
-                'name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'level' => 1,
-                'gender' => 'L',
-                'password' => bcrypt('12345678'),
+                'order_process_time' => 'Lebih dari 3 Hari',
+                'price' => 0,
+                'visible' => true,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ],
             [
                 'id' => 2,
-                'name' => 'customer',
-                'email' => 'customer@gmail.com',
-                'level' => 2,
-                'gender' => 'P',
-                'password' => bcrypt('12345678'),
+                'order_process_time' => 'Kurang dari 3 Hari',
+                'price' => 50000,
+                'visible' => true,
                 'delete' => false,
                 'created_at' => $dateNow,
                 'updated_at' => $dateNow
             ]
         ];
 
-        DB::table('users')->insert($user);
+        DB::table('order_process_times')->insert($process_time);
     }
 }

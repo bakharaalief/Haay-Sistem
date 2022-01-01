@@ -50,7 +50,7 @@ class CreateOrdersTable extends Migration
 
             $table->bigInteger('order_delivery_price_now');
 
-            $table->text('bukti_transfer');
+            $table->text('bukti_transfer')->nullable(true);
 
             $table->foreignId('order_status')
                 ->references('id')

@@ -25,7 +25,8 @@ class OrderSeeder extends Seeder
                 'order_delivery' => 1,
                 'order_delivery_price_now' => 50000,
                 'bukti_transfer' => null,
-                'order_status' => 5
+                'order_status' => 5,
+                'total_price' => 10000
             ]);
         }
 
@@ -40,7 +41,8 @@ class OrderSeeder extends Seeder
                 'order_delivery' => 1,
                 'order_delivery_price_now' => 50000,
                 'bukti_transfer' => null,
-                'order_status' => 6
+                'order_status' => 6,
+                'total_price' => 10000
             ]);
         }
     }
