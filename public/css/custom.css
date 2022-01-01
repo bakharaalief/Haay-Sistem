@@ -366,8 +366,10 @@
     cursor: pointer;
 }
 
+/* Keranjang */
 .keranjang {
     margin-top: 30px;
+    min-height: 280px;
 }
 
 .keranjang-item{
@@ -452,6 +454,11 @@
     margin-bottom: 10px;
 }
 
+/* Order */
+.order{
+    min-height: 280px;
+}
+
 .order .order-item{
     display: flex;
     justify-content: space-between;
@@ -505,6 +512,67 @@
 .order .order-item .order-action .btn {
     margin-inline: 5px;
 }
+
+/* phone */
+.phone{
+    min-height: 280px;
+}
+
+.phone .phone-item{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--kuning);
+    padding: 22px;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.phone .phone-item .phone-info .phone-number{
+    font-weight: bold;
+    font-size: 21px;
+    margin-bottom: 0px;
+}
+
+.phone .phone-item .phone-action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.phone .phone-item .phone-action .btn {
+    margin-inline: 5px;
+}
+
+/* alamat */
+.address{
+    min-height: 280px;
+}
+
+.address .address-item{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--kuning);
+    padding: 22px;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.address .address-item .address-info .alamat{
+    font-weight: bold;
+    font-size: 21px;
+    margin-bottom: 0px;
+}
+
+.address .address-item .address-action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.address .address-item .address-action .btn {
+    margin-inline: 5px;
+}
+
 
 /* desktop size */
 @media (max-width: 992px) {

@@ -114,6 +114,8 @@ $totalHarga = 0;
 
                 <input id="hargaPengiriman" type="number" name="harga_pengiriman" hidden>
 
+                <input id="totalBayar" type="number" name="total_bayar" hidden>
+
 
                 <div class="pemisah py-2"></div>
 
@@ -189,6 +191,7 @@ $totalHarga = 0;
 
             var totalHargaSeluruhnya = totalHarga + hargaProcess + hargaKurir;
 
+            $('#totalBayar').val(totalHargaSeluruhnya);
             $('.total-harga-seluruhnya').text(formatRupiah(totalHargaSeluruhnya.toString(), 'Rp. '));
         }
 

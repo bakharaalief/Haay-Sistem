@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\FoodCategoryController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\OrderDeliveryController;
 use App\Http\Controllers\OrderProcessTime;
 use App\Http\Controllers\OrderProcessTimeController;
 use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\UserController;
 use App\Models\Cart;
 use App\Models\OrderDelivery;
@@ -101,3 +103,5 @@ Route::prefix('/admin')->middleware(['isAdmin', 'auth'])->group(function () {
 //customer route
 Route::resource('/cart', CartController::class)->middleware(['auth']);
 Route::resource('/order', OrderController::class)->middleware(['auth']);
+Route::resource('/phone', PhoneController::class)->middleware(['auth']);
+Route::resource('/address', AddressController::class)->middleware(['auth']);

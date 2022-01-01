@@ -23,7 +23,7 @@ class CartController extends Controller
             ->get();
 
         //orderProcessTime
-        $orderProcessTimeData = OrderProcessTime::all();
+        $orderProcessTimeData = OrderProcessTime::where('delete', false)->get();
 
         //nomor telpon user
         $phoneData = Auth::user()->getPhone;
@@ -32,7 +32,7 @@ class CartController extends Controller
         $addressData = Auth::user()->getAddress;
 
         //jenis delivery
-        $deliveryData = OrderDelivery::all();
+        $deliveryData = OrderDelivery::where('delete', false)->get();
 
         return view('cart.index')->with(
             compact('cartData', 'orderProcessTimeData', 'phoneData', 'addressData', 'deliveryData')

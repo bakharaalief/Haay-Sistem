@@ -18,7 +18,8 @@ class Order extends Model
         'order_delivery',
         'order_delivery_price_now',
         'bukti_transfer',
-        'order_status'
+        'order_status',
+        'total_bayar'
     ];
 
     public function getUser()

@@ -58,6 +58,8 @@ class CreateOrdersTable extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
+            $table->bigInteger('total_price');
+
             $table->boolean('delete')->default(false);
             $table->timestamps();
         });

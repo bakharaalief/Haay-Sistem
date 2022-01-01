@@ -47,6 +47,7 @@
                 <th>Lama Pengerjaan</th>
                 <th>Kurir</th>
                 <th>Bukti Transfer</th>
+                <th>Total Bayar</th>
                 <th>Status</th>
                 <th class="col-1">Detail</th>
                 <th class="col-1">Edit</th>
@@ -70,6 +71,7 @@
                     width="250"
                     height="250">
                 </td> --}}
+                <td>{{ $order->total_bayar }}</td>
                 <td>{{ $order->getStatus->status }}</td>
                 <td>
                   <button class="btn btn-info detail-order" data-toggle="modal" data-id="{{$order->id}}" >
