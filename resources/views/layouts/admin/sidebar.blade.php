@@ -155,15 +155,11 @@
         {{-- logout button --}}
         <li class="nav-item">
           <a 
-          href="{{ route('logout') }}" 
-          class="nav-link primary text-danger font-weight-bold"  
-          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          href="#" 
+          class="nav-link primary text-danger font-weight-bold button-logout">
             <i class="nav-icon fa fa-sign-out"></i>
             <p>Logout</p>
           </a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-          </form>
         </li>
     </nav>
     <!-- /.sidebar-menu -->

@@ -237,7 +237,7 @@
 {{-- edit modal configuration --}}
 <script>
   $(function(){
-    $('.edit-order').on("click", function(event) {
+    $('body').on("click", '.edit-order', function(event) {
       
       var order_id = $(this).data('id');
 
@@ -259,7 +259,7 @@
 {{-- delete model configurarion --}}
 <script>
   $(function(){
-    $('.delete-food-menu').on("click", function(event) {
+    $('body').on("click", '.delete-food-menu', function(event) {
 
       $("#modal-default-3").modal('show');
       var food_menu_id = $(this).data('id');
@@ -289,7 +289,7 @@
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 		}
 
-    $('.detail-order').on("click", function(event) {
+    $('body').on("click", '.detail-order', function(event) {
 
       var order_id = $(this).data('id');
 

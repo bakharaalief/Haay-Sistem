@@ -10,10 +10,12 @@
 @endsection
 
 @section('content')
-<h1 class="text-center text-font font-weight-bold pt-4">Order</h1>
+<h1 class="text-center text-font font-weight-bold pt-5">Order</h1>
 
 <div class="order container py-5">
 
+    @if (count($dataOrder) > 0)
+    
     @foreach ($dataOrder as $order)
     <div class="order-item">
         <div class="order-info">
@@ -51,6 +53,17 @@
         </div>
     </div>
     @endforeach
+
+    @else
+    <div class="row justify-content-center py-1">
+        <p class="info">Pemesanan Masih Kosong Nih, Ayo Dong Di Beli Produknya :)</p>
+    </div>
+
+    <div class="row justify-content-center py-1">
+        <a href="{{ route('cart.index') }}"  class="btn btn-info">Cek Keranjang</a>
+    </div>
+    @endIf
+    
 
     {{-- bayar modal --}}
     <div class="modal fade" id="modal-default-1">

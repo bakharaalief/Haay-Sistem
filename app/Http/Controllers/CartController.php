@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\OrderDelivery;
 use App\Models\OrderProcessTime;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,18 +58,23 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $id = Auth::user()->id;
+        try {
+            $id = Auth::user()->id;
 
-        Cart::create([
-            'user' => $id,
-            'food_menu_type' => $request['menu_type'],
-            'amount' => $request['menu_amount'],
-            'photo_refrensi' => null,
-            'notes' => $request['menu_notes']
-        ]);
+            Cart::create([
+                'user' => $id,
+                'food_menu_type' => $request['menu_type'],
+                'amount' => $request['menu_amount'],
+                'photo_refrensi' => null,
+                'notes' => $request['menu_notes']
+            ]);
 
-        return Redirect(route('normal.menu'))
-            ->with(['success_store' => 'Menu Dimasukkan Ke Keranjang']);
+            return Redirect(route('normal.menu'))
+                ->with(['success_store' => 'Menu Dimasukkan Ke Keranjang']);
+        } catch (Exception $e) {
+            return Redirect(route('normal.menu'))
+                ->with(['failed_store' => 'Menu Gagal Dimasukkan Ke Keranjang']);
+        }
     }
 
     /**
@@ -113,11 +119,15 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //update data to delete false
-        Cart::where('delete', false)->where('id', $id)->update([
-            'delete' => true
-        ]);
+        try {
+            //update data to delete false
+            Cart::where('delete', false)->where('id', $id)->update([
+                'delete' => true
+            ]);
 
-        return redirect(route('cart.index'));
+            return redirect(route('cart.index'))->with(['success_destroy' => 'Berhasil Menghapus Menu']);
+        } catch (Exception $e) {
+            return redirect(route('cart.index'))->with(['failed_destroy' => 'Gagal Menghapus Menu']);
+        }
     }
 }

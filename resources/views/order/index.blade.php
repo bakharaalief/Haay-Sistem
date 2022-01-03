@@ -49,6 +49,7 @@
                 <th>Bukti Transfer</th>
                 <th>Total Bayar</th>
                 <th>Status</th>
+                <th>Dibuat</th>
                 <th class="col-1">Detail</th>
                 <th class="col-1">Edit</th>
               </tr>
@@ -71,8 +72,9 @@
                     width="250"
                     height="250">
                 </td> --}}
-                <td>{{ $order->total_bayar }}</td>
+                <td>{{ $order->total_price }}</td>
                 <td>{{ $order->getStatus->status }}</td>
+                <td>{{ $order->created_at }}</td>
                 <td>
                   <button class="btn btn-info detail-order" data-toggle="modal" data-id="{{$order->id}}" >
                   Detail
@@ -237,7 +239,7 @@
 {{-- edit modal configuration --}}
 <script>
   $(function(){
-    $('.edit-order').on("click", function(event) {
+    $('body').on("click", '.edit-order', function(event) {
       
       var order_id = $(this).data('id');
 
@@ -259,7 +261,7 @@
 {{-- delete model configurarion --}}
 <script>
   $(function(){
-    $('.delete-food-menu').on("click", function(event) {
+    $('body').on("click", '.delete-food-menu', function(event) {
 
       $("#modal-default-3").modal('show');
       var food_menu_id = $(this).data('id');
@@ -289,7 +291,7 @@
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 		}
 
-    $('.detail-order').on("click", function(event) {
+    $('body').on("click", '.detail-order', function(event) {
 
       var order_id = $(this).data('id');
 
@@ -300,8 +302,6 @@
           error: function(req, err){ console.log('error : ' + err) }
       })
       .done(function(response) {
-
-        console.log(response);
           $("#modalDetailTitle").text('id : ' + response['id']);
 
           $('#modalDetailTable').empty();

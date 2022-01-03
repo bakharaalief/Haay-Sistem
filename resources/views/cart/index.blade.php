@@ -1,5 +1,13 @@
 @extends('layouts.normal.app')
 
+@section('css')
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css ') }}">
+@endsection
+
 @section('content')
 <h1 class="text-center text-font font-weight-bold pt-4">Keranjang Menu</h1>
 
@@ -14,6 +22,10 @@ $totalHarga = 0;
 @endphp
 
 <div class="keranjang container">
+
+
+    @if (count($cartData) > 0)
+
     @foreach ($cartData as $data)
 
     @php
@@ -43,12 +55,20 @@ $totalHarga = 0;
     </div>
     @endforeach
 
-    @if (count($cartData) > 0)
     <div class="keranjang-informasi">
         <h4 class="total-harga">Total : {{ rupiah($totalHarga) }}</h4>
         <div class="beli-button" data-harga="{{ $totalHarga }}">
             <p>Beli</p>
         </div>
+    </div>
+
+    @else
+    <div class="row justify-content-center py-1">
+        <p class="info">Keranjang Masih Kosong Nih, Cek Menu Kita yang lain yuk :)</p>
+    </div>
+
+    <div class="row justify-content-center py-1">
+        <a href="{{ route('normal.menu') }}"  class="btn btn-info">Cek Menu</a>
     </div>
     @endif
 
@@ -204,4 +224,23 @@ $totalHarga = 0;
         });
     });
 </script>
+
+<!-- SweetAlert2 -->
+<script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+
+{{-- berhasil update order--}}
+@if ($message = Session::get('success_destroy'))
+<script>
+  toastr.success('{{ $message }}');
+</script>
+@endif
+
+{{-- gagal update order --}}
+@if ($message = Session::get('failed_destroy'))
+<script>
+  toastr.error('{{ $message }}');
+</script>
+@endif
 @endSection

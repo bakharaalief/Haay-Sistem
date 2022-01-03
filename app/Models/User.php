@@ -70,12 +70,12 @@ class User extends Authenticatable
     //get Cart
     public function getCart()
     {
-        return $this->hasMany(Cart::class, 'user', 'id');
+        return $this->hasMany(Cart::class, 'user', 'id')->orderBy('created_at', 'DESC');
     }
 
     //get Order
     public function getOrder()
     {
-        return $this->hasMany(Order::class, 'user', 'id');
+        return $this->hasMany(Order::class, 'user', 'id')->orderBy('created_at', 'DESC');
     }
 }

@@ -30,7 +30,8 @@ class CreateCartsTable extends Migration
 
             $table->integer('amount');
             $table->longText('notes');
-            $table->text('photo_refrensi');
+
+            $table->text('photo_refrensi')->nullable(true);
 
             $table->boolean('delete')->default(false);
             $table->timestamps();

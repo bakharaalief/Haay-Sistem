@@ -51,7 +51,7 @@ class OrderController extends Controller
                 'order_delivery' => $request['order_delivey'],
                 'order_delivery_price_now' => $request['harga_pengiriman'],
                 'order_status' => 1,
-                'total_bayar' => $request['total_bayar'],
+                'total_price' => $request['total_bayar'],
             ]);
 
             $cartData = Auth::user()->getCart->where('delete', false);

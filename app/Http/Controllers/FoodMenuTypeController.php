@@ -48,7 +48,9 @@ class FoodMenuTypeController extends Controller
         try {
             //check data if exist in db
             $cekAda = FoodMenuType::where('delete', false)
-                ->where('food_type', $request['menu_type'])->first();
+                ->where('food_menu', $request['menu_id'])
+                ->where('food_type', $request['menu_type'])
+                ->first();
 
             //if exist
             if (isset($cekAda)) {

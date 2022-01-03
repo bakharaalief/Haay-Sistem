@@ -60,7 +60,6 @@
         @yield('content')
     </section>
     <!-- /.content -->
-
   </div>
   <!-- /.content-wrapper -->
 
@@ -73,6 +72,34 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+
+  {{-- logout modal --}}
+  <div class="modal fade" id="form-logout">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Logout</h4>
+          <button menu="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          
+          <div class="modal-body">
+            <p>Anda Yakin Ingin Logout ? </p>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button menu="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button menu="submit" class="btn btn-danger">Iya</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
   
 </div>
 <!-- ./wrapper -->
@@ -85,6 +112,17 @@
 <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+
+{{-- logout model configurarion --}}
+<script>
+  $(function(){
+    $('.button-logout').on("click", function(event) {
+      $("#form-logout").modal('show');
+    });
+  })
+</script>
+
+
 {{-- js --}}
 @yield('js')
 </body>
